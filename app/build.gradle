@@ -100,4 +100,8 @@ dependencies {
 
     //liquid swipe android
     implementation 'com.cuberto:liquid-swipe:1.0.0'
+
+    //lottie animations
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }
