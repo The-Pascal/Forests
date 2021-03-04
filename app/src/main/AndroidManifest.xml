@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".onboarding.Onboarding">
+        <activity android:name=".splashScreen.SplashScreen">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".registerLogin.RegistrationPage">
-        </activity>
+        <activity android:name=".onboarding.Onboarding"/>
+        <activity android:name=".registerLogin.RegistrationPage"></activity>
         <activity android:name=".registerLogin.loginpage" />
         <activity android:name=".registerLogin.ResetPassword" />
         <activity android:name=".Main" />
