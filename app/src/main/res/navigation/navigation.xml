@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragment_location">
+    <fragment
+        android:id="@+id/fragment_location"
+        android:name="com.example.forests.fragments.Location"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/action_location_to_dashboard"
+            app:destination="@id/fragment_dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_dashboard"
+        android:name="com.example.forests.fragments.Dashboard"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.example.forests.fragments.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/fragment_tree_wiki"
+        android:name="com.example.forests.fragments.Wiki"
+        android:label="fragment_wiki"
+        tools:layout="@layout/fragment_wiki" />
+</navigation>
