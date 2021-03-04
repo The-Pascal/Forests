@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-import com.example.forests.Home
+import com.example.forests.Main
 import com.example.forests.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -221,7 +221,7 @@ class RegistrationPage : AppCompatActivity() {
                 val handler = Handler()
                 handler.postDelayed({
                     Toast.makeText(this, "Account created successfully. Email sent to confirm.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, Home::class.java)
+                    val intent = Intent(this, Main::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 },1000)
@@ -233,7 +233,7 @@ class RegistrationPage : AppCompatActivity() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // User is signed in
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, Main::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

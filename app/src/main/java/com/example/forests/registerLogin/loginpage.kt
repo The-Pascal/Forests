@@ -9,7 +9,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.forests.Home
+import com.example.forests.Main
 import com.example.forests.R
 //import com.example.yourrecycler.registerLogin.ResetPassword
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -96,7 +96,7 @@ class loginpage : AppCompatActivity() {
                         val handler = Handler()
                         handler.postDelayed({
                                 Toast.makeText(this, "Successfully Logged in", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this, Home::class.java)
+                                val intent = Intent(this, Main::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(intent)
                         },1000)
@@ -138,7 +138,7 @@ class loginpage : AppCompatActivity() {
                 val handler = Handler()
                 handler.postDelayed({
                     Toast.makeText(this, "Successfully Logged in", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, Home::class.java)
+                    val intent = Intent(this, Main::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 },1000)
