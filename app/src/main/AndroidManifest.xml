@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Location"></activity>
+        <activity android:name=".Location"/>
         <activity android:name=".registerLogin.RegistrationPage"/>
 
         <activity android:name=".splashScreen.SplashScreen">

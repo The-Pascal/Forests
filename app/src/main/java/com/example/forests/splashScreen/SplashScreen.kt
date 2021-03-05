@@ -6,6 +6,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.HandlerCompat.postDelayed
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
+import com.example.forests.Location
 import com.example.forests.Main
 import com.example.forests.R
 import com.example.forests.onboarding.Onboarding
@@ -28,7 +29,7 @@ class SplashScreen : AppCompatActivity() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // User is signed in
-            val intent = Intent(this, Main::class.java)
+            val intent = Intent(this, Location::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
