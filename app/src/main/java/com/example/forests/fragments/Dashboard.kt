@@ -69,6 +69,10 @@ class Dashboard : Fragment() {
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
 
 
+        circularloader(v)
+
+        //val aqitv = v.findViewById<CountAnimationTextView>(R.id.airQualityData);
+
         val apiService = airQualityDataService()
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -96,17 +100,40 @@ class Dashboard : Fragment() {
                 v.findViewById<CountAnimationTextView>(R.id.pm10TextView).setAnimationDuration(1000).countAnimation(0,pm10)
                 v.findViewById<CountAnimationTextView>(R.id.pm25TextView).setAnimationDuration(1000).countAnimation(0,pm25)
                 getForestData(state)
-
+                
+                firstTime=false
             }
-
-            firstTime=false
         }
             return v;
     }
 
-    private fun getForestData(state: String){
 
-        val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/Haryana")
+
+
+    private fun circularloader(view: View){
+        val circularProgressBar = view.findViewById<CircularProgressBar>(R.id.circularProgressBar)
+        circularProgressBar.apply {
+            setProgressWithAnimation(165f, 4000) // =1s
+            // Set Progress Max
+            progressMax = 200f
+            // Set ProgressBar Color
+//            progressBarColor = Color.BLACK
+            // Set background ProgressBar Color
+//            backgroundProgressBarColor = Color.WHITE
+//            progressBarWidth = 4f // in DP
+            // Other
+            roundBorder = true
+            startAngle = 180f
+//            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+
+
+        }
+    }
+
+
+    private fun getFirebaseData(state: String){
+        val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
+
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
