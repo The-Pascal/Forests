@@ -43,35 +43,6 @@ class Main : AppCompatActivity() {
         //val intent = Intent(this, Dashboard::class.java)
        // startActivity(intent)
     }
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, null)
-    }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.nav_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.new_messages_menu ->{
-//                startActivity(Intent(this, newmessageActivity::class.java))
-            }
-            R.id.profile -> {
-//                startActivity(Intent(this, Profile::class.java))
-            }
-            R.id.sign_out_menu ->{
-                val uid = FirebaseAuth.getInstance().uid
-                FirebaseDatabase.getInstance().getReference("/Users/$uid/active")
-                    .setValue(false)
-
-                FirebaseAuth.getInstance().signOut()
-                val intent = Intent(this, RegistrationPage::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 }

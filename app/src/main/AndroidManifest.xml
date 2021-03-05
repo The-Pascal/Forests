@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".Location"></activity>
-        <activity android:name=".registerLogin.RegistrationPage">
+        <activity android:name=".registerLogin.RegistrationPage"/>
 
         <activity android:name=".splashScreen.SplashScreen">
             <intent-filter>
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".onboarding.Onboarding"/>
-        <activity android:name=".registerLogin.RegistrationPage"></activity>
+
         <activity android:name=".registerLogin.loginpage" />
         <activity android:name=".registerLogin.ResetPassword" />
         <activity android:name=".Main" />
