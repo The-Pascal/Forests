@@ -28,7 +28,8 @@ class Main : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
+        var lat = intent.getStringExtra("lat")
+        var lon = intent.getStringExtra("lon")
 
         navController = Navigation.findNavController(this,R.id.myNavHostFragment)
         bottomNavigation.setupWithNavController(navController)
