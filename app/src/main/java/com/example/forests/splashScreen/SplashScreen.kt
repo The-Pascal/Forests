@@ -10,12 +10,15 @@ import com.example.forests.Main
 import com.example.forests.R
 import com.example.forests.onboarding.Onboarding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         Handler().postDelayed(
             {
