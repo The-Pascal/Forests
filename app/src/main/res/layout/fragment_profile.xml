@@ -182,7 +182,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/progess_tree_imageView"
+                android:id="@+id/progess_tree_imageView8"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_small_tree_on_ground"
@@ -192,7 +192,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/number_trees_planted_textView"
+                android:id="@+id/number_trees_planted_textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_heavy"
@@ -200,9 +200,9 @@
                 android:textColor="@color/txt_black"
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"
-                app:layout_constraintEnd_toEndOf="@+id/progess_tree_imageView"
-                app:layout_constraintStart_toStartOf="@+id/progess_tree_imageView"
-                app:layout_constraintTop_toBottomOf="@+id/progess_tree_imageView" />
+                app:layout_constraintEnd_toEndOf="@+id/progess_tree_imageView8"
+                app:layout_constraintStart_toStartOf="@+id/progess_tree_imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/progess_tree_imageView8" />
 
             <TextView
                 android:id="@+id/number_trees_planted_textView_subtext"
@@ -212,9 +212,9 @@
                 android:maxWidth="250dp"
                 android:text="Trees Planted"
                 android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="@+id/number_trees_planted_textView"
-                app:layout_constraintStart_toStartOf="@+id/number_trees_planted_textView"
-                app:layout_constraintTop_toBottomOf="@+id/number_trees_planted_textView" />
+                app:layout_constraintEnd_toEndOf="@+id/number_trees_planted_textView8"
+                app:layout_constraintStart_toStartOf="@+id/number_trees_planted_textView8"
+                app:layout_constraintTop_toBottomOf="@+id/number_trees_planted_textView8" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
