@@ -57,6 +57,8 @@ class Dashboard : Fragment() {
         // Inflate the layout for this fragment
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
 
+        circularloader(v)
+
         //val aqitv = v.findViewById<CountAnimationTextView>(R.id.airQualityData);
 
         val apiService = airQualityDataService()
@@ -90,26 +92,30 @@ class Dashboard : Fragment() {
                 twForestDensity.text = airQualityData[0].no2.toString()
                 twTreePlatingData.text = airQualityData[0].co.toString()
             }
-
-            val circularProgressBar = v.findViewById<CircularProgressBar>(R.id.circularProgressBar)
-            circularProgressBar.apply {
-                setProgressWithAnimation(165f, 4000) // =1s
-                // Set Progress Max
-                progressMax = 200f
-                // Set ProgressBar Color
-                progressBarColor = Color.BLACK
-                // Set background ProgressBar Color
-                backgroundProgressBarColor = Color.WHITE
-                progressBarWidth = 4f // in DP
-                // Other
-                roundBorder = true
-                startAngle = 0f
-                progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
-
-            }
         }
             return v;
     }
+
+
+    private fun circularloader(view: View){
+        val circularProgressBar = view.findViewById<CircularProgressBar>(R.id.circularProgressBar)
+        circularProgressBar.apply {
+            setProgressWithAnimation(165f, 4000) // =1s
+            // Set Progress Max
+            progressMax = 200f
+            // Set ProgressBar Color
+//            progressBarColor = Color.BLACK
+            // Set background ProgressBar Color
+//            backgroundProgressBarColor = Color.WHITE
+//            progressBarWidth = 4f // in DP
+            // Other
+            roundBorder = true
+            startAngle = 180f
+//            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+
+        }
+    }
+
 
     private fun getFirebaseData(state: String){
         val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
