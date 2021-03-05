@@ -80,9 +80,6 @@ class RegistrationPage : AppCompatActivity() {
             startActivityForResult(intent,0)
         }
 
-        //verify if user is logged in
-        verifyUserIsLoggedIn()
-
     }
 
 
