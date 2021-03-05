@@ -108,9 +108,9 @@ dependencies {
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
-    //circular reveal activity
-//    implementation 'com.github.tombayley:ActivityCircularReveal:1.0.2'
-//    implementation
+    //Animate activities
     implementation 'com.github.mohammadatif:Animatoo:master'
+
+    //Circular Progress bar
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
 }
