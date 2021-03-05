@@ -1,5 +1,6 @@
 package com.example.forests.fragments
 
+import android.app.ProgressDialog.show
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.UiThread
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
 import com.daasuu.cat.CountAnimationTextView
 import com.example.forests.ForestData
@@ -67,13 +70,16 @@ class Dashboard : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val fragmentManager: FragmentManager
 
-
-        circularloader(v)
-
+        v.findViewById<CardView>(R.id.airQualityCardView).setOnClickListener {
+           // val modalSheetDialogFragment = infoSheetDialogFragment()
+            //.show(supportFragmentManager,infoSheetDialogFragment.TAG)
+        }
         //val aqitv = v.findViewById<CountAnimationTextView>(R.id.airQualityData);
 
         val apiService = airQualityDataService()
+        Log.d("LatestMessages","Current User ${state}")
 
         GlobalScope.launch(Dispatchers.Main) {
             val response = apiService?.getTreesByCoordinates(lattitude, longitude)?.await()
@@ -87,21 +93,27 @@ class Dashboard : Fragment() {
                 val pm10= airQualityData[0].pm10.toInt()
                 val pm25= airQualityData[0].pm25.toInt()
 
-
-
                 Log.i("AirQualityAPIresponse", response.data.toString())
-
-                val twForestDensity = v.findViewById<TextView>(R.id.forestDensityData)
-              v.findViewById<CountAnimationTextView>(R.id.airQualityData).setAnimationDuration(1000).countAnimation(0,aqi)
-                 v.findViewById<CountAnimationTextView>(R.id.coTextView).setAnimationDuration(1000).countAnimation(0,co)
-                v.findViewById<CountAnimationTextView>(R.id.so2TextView).setAnimationDuration(1000).countAnimation(0,so2)
-                v.findViewById<CountAnimationTextView>(R.id.no2TextView).setAnimationDuration(1000).countAnimation(0,no2)
-                v.findViewById<CountAnimationTextView>(R.id.o3TextView).setAnimationDuration(1000).countAnimation(0,o3)
-                v.findViewById<CountAnimationTextView>(R.id.pm10TextView).setAnimationDuration(1000).countAnimation(0,pm10)
-                v.findViewById<CountAnimationTextView>(R.id.pm25TextView).setAnimationDuration(1000).countAnimation(0,pm25)
-                getForestData(state)
-                
+                if(firstTime) {
+                    v.findViewById<CountAnimationTextView>(R.id.airQualityData)
+                        .setAnimationDuration(1000).countAnimation(0, aqi)
+                    v.findViewById<CountAnimationTextView>(R.id.coTextView)
+                        .setAnimationDuration(1000).countAnimation(0, co)
+                    v.findViewById<CountAnimationTextView>(R.id.so2TextView)
+                        .setAnimationDuration(1000).countAnimation(0, so2)
+                    v.findViewById<CountAnimationTextView>(R.id.no2TextView)
+                        .setAnimationDuration(1000).countAnimation(0, no2)
+                    v.findViewById<CountAnimationTextView>(R.id.o3TextView)
+                        .setAnimationDuration(1000).countAnimation(0, o3)
+                    v.findViewById<CountAnimationTextView>(R.id.pm10TextView)
+                        .setAnimationDuration(1000).countAnimation(0, pm10)
+                    v.findViewById<CountAnimationTextView>(R.id.pm25TextView)
+                        .setAnimationDuration(1000).countAnimation(0, pm25)
+                }
                 firstTime=false
+
+                getForestData(state)
+
             }
         }
             return v;
@@ -131,7 +143,9 @@ class Dashboard : Fragment() {
     }
 
 
-    private fun getFirebaseData(state: String){
+    private fun getForestData(state: String){
+        Log.d("LatestMessages","Current User ${state}")
+
         val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
 
 
@@ -143,34 +157,22 @@ class Dashboard : Fragment() {
                 val forestData = p0.getValue(ForestData::class.java)
                 Log.d("LatestMessages","Current User ${forestData}")
                 val totalforestcover = (forestData?.actualforestcover?.toInt()
-                    ?.plus(forestData.openforest?.toInt()))!!.times(100).toDouble()
+                    ?.plus(forestData.openforest?.toInt()))?.times(100)?.toDouble()
                 val totalArea = forestData?.geoarea?.toInt()
-                var forestDensity = totalforestcover?.div(Math.max(1, totalArea!!
-                ))!!
+                var forestDensity = totalArea?.let {
+                    Math.max(1, it
+                    )
+                }?.let { totalforestcover?.div(it) }!!
 
 
                 val roundedForestDensity:Double = String.format("%.2f", forestDensity).toDouble()
 
+                circularloader(v)
 
 
                 Log.d("LatestMessages","Current User ${roundedForestDensity}")
 
-                val circularProgressBar = v.findViewById<CircularProgressBar>(R.id.circularProgressBar)
-                circularProgressBar.apply {
-                    setProgressWithAnimation(165f, 4000) // =1s
-                    // Set Progress Max
-                    progressMax = 200f
-                    // Set ProgressBar Color
-                    progressBarColor = Color.BLACK
-                    // Set background ProgressBar Color
-                    backgroundProgressBarColor = Color.WHITE
-                    progressBarWidth = 4f // in DP
-                    // Other
-                    roundBorder = true
-                    startAngle = 0f
-                    progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
 
-                }
 
                 v.findViewById<CountAnimationTextView>(R.id.forestDensityData).text = roundedForestDensity.toString()
                 if (forestData != null) {
