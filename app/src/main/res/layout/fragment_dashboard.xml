@@ -10,49 +10,162 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-       <TextView
-           android:id="@+id/textViewNoOfTreesToPlant"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="24dp"
-           android:layout_marginLeft="24dp"
-           android:layout_marginTop="40dp"
-           android:text="Trees To Plant : "
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/textViewForestDensity" />
 
-       <TextView
-           android:id="@+id/textViewNoOfTrees"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="24dp"
-           android:layout_marginLeft="24dp"
-           android:layout_marginTop="76dp"
-           android:text="No of Trees :"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/airQualityFrame"
+           android:layout_width="185dp"
+           android:layout_height="173dp"
+           android:layout_marginTop="28dp"
+           android:layout_marginEnd="24dp"
+           android:layout_marginRight="24dp"
+           android:background="#f85959"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent">
 
-       <TextView
-           android:id="@+id/textViewAirQuality"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="24dp"
-           android:layout_marginLeft="24dp"
-           android:layout_marginTop="32dp"
-           android:text="AirQuality : "
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/textViewNoOfTrees" />
+           <TextView
+               android:id="@+id/textViewAirQuality"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="57dp"
+               android:layout_marginLeft="57dp"
+               android:layout_marginTop="28dp"
+               android:layout_marginEnd="57dp"
+               android:layout_marginRight="57dp"
+               android:text="AirQuality "
+               android:textColor="#FFFFFF"
+               android:textSize="18sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintHorizontal_bias="0.428"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
-       <TextView
-           android:id="@+id/textViewForestDensity"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
+           <com.daasuu.cat.CountAnimationTextView
+               android:id="@+id/airQualityData"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="88dp"
+               android:layout_marginLeft="88dp"
+               android:layout_marginTop="40dp"
+               android:layout_marginEnd="89dp"
+               android:layout_marginRight="89dp"
+               android:text="0"
+               android:textColor="#FFFFFF"
+               android:textSize="36sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/textViewAirQuality" />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/noOfTreesFrame"
+           android:layout_width="157dp"
+           android:layout_height="250dp"
            android:layout_marginStart="24dp"
            android:layout_marginLeft="24dp"
-           android:layout_marginTop="36dp"
-           android:text="Forest Density : "
+           android:layout_marginTop="28dp"
+           android:background="#17b978"
+           android:foregroundGravity="center"
            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/textViewAirQuality" />
+           app:layout_constraintTop_toTopOf="parent">
+
+           <TextView
+               android:id="@+id/textViewForestDensity"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="28dp"
+               android:layout_marginLeft="28dp"
+               android:layout_marginTop="28dp"
+               android:layout_marginEnd="29dp"
+               android:layout_marginRight="29dp"
+               android:text="Forest Density "
+               android:textColor="#FFFFFF"
+               android:textSize="18sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <com.daasuu.cat.CountAnimationTextView
+               android:id="@+id/forestDensityData"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="49dp"
+               android:layout_marginLeft="49dp"
+               android:layout_marginTop="39dp"
+               android:layout_marginEnd="50dp"
+               android:layout_marginRight="50dp"
+               android:text="0.00"
+               android:textColor="#FFFFFF"
+               android:textSize="36sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/textViewForestDensity" />
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <FrameLayout
+           android:id="@+id/pollutantFrame"
+           android:layout_width="184dp"
+           android:layout_height="235dp"
+           android:layout_marginTop="20dp"
+           android:layout_marginEnd="24dp"
+           android:layout_marginRight="24dp"
+           android:background="#cabbe9"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/airQualityFrame">
+
+       </FrameLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="157dp"
+           android:layout_height="165dp"
+           android:layout_marginStart="24dp"
+           android:layout_marginLeft="24dp"
+           android:layout_marginTop="15dp"
+           android:background="#43dde6"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/noOfTreesFrame">
+
+           <TextView
+               android:id="@+id/textViewNoOfTreesToPlant"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="28dp"
+               android:layout_marginLeft="28dp"
+               android:layout_marginTop="16dp"
+               android:layout_marginEnd="29dp"
+               android:layout_marginRight="29dp"
+               android:text="Trees To Plant "
+               android:textColor="#FFFFFF"
+               android:textSize="18sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <com.daasuu.cat.CountAnimationTextView
+               android:id="@+id/treePlantingData"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="50dp"
+               android:layout_marginLeft="50dp"
+               android:layout_marginTop="27dp"
+               android:layout_marginEnd="49dp"
+               android:layout_marginRight="49dp"
+               android:text="0"
+               android:textColor="#FFFFFF"
+               android:textSize="36sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/textViewNoOfTreesToPlant" />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

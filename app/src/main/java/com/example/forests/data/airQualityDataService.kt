@@ -1,5 +1,6 @@
 package com.example.forests.data
 
+import com.example.forests.data.airQualityResponse.airQualityData
 import com.example.forests.data.stateForestDataResponse.stateForestData
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -11,24 +12,27 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-const val API_KEY = "579b464db66ec23bdd00000157bc862d9f2146d84b764d388c4b7319"
+const val AirQualityAPI_KEY: String = "fe3cc9eeea474df0af9999424550bdee"
 
-interface stateForestApiService {
-    @GET("4b573150-4b0e-4a38-9f4b-ae643de88f09")
-    fun getTrees(
-        @Query("format") docFormat: String = "json",
-        @Query("offset") offset: Int = 0,
-        @Query("limit") limit: Int = 5,
-        @Query("filter") filter: String
-    ): Deferred<stateForestData>
+interface airQualityDataService {
+    @GET("v2.0/current/airquality")
+    fun getTreesByCity(
+        @Query("city") city: String
+    ): Deferred<airQualityData>
+
+    @GET("v2.0/current/airquality")
+    fun getTreesByCoordinates(
+        @Query("lat") lattitude: String,
+        @Query("lon") longitude: String
+    ): Deferred<airQualityData>
 
     companion object{
-        operator fun invoke(): stateForestApiService? {
+        operator fun invoke(): airQualityDataService? {
             val requestInterceptor = Interceptor{chain ->
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("api-key", API_KEY)
+                    .addQueryParameter("key", AirQualityAPI_KEY)
                     .build()
 
 
@@ -47,11 +51,11 @@ interface stateForestApiService {
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://api.data.gov.in/resource/")
+                .baseUrl("https://api.weatherbit.io/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(stateForestApiService::class.java)
+                .create(airQualityDataService::class.java)
         }
     }
 }
