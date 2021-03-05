@@ -13,7 +13,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -35,6 +37,7 @@ class Profile : Fragment() {
         circularProgress(view)
 
 
+
         val adapter = GroupAdapter<ViewHolder>()
         view.recycler_view_profile_achievements.adapter = adapter
 
@@ -50,6 +53,7 @@ class Profile : Fragment() {
     private fun fetchCurrentUser(view: View){
         val uid = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/Users/$uid")
+        ref.keepSynced(true)
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -59,6 +63,7 @@ class Profile : Fragment() {
                 val currentUser = p0.getValue(Users::class.java)
                 view.achievement_name_textView.text = currentUser?.username
                 view.email_profile.text = currentUser?.email
+                Picasso.get().load(currentUser?.imageUrl).into(view.userprofile_imageView)
             }
 
         })

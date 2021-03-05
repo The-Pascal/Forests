@@ -47,7 +47,17 @@
         app:layout_constraintStart_toStartOf="@+id/username_black_imageView"
         app:layout_constraintTop_toTopOf="@+id/username_black_imageView" />
 
-    <TextView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userprofile_imageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="@+id/username_black_imageView"
+            app:layout_constraintEnd_toEndOf="@+id/username_black_imageView"
+            app:layout_constraintStart_toStartOf="@+id/username_black_imageView"
+            app:layout_constraintTop_toTopOf="@+id/username_black_imageView" />
+
+
+        <TextView
         android:id="@+id/achievement_name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
