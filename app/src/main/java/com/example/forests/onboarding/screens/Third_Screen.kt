@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.example.forests.R
 import com.example.forests.registerLogin.RegistrationPage
 import kotlinx.android.synthetic.main.fragment_third__screen.view.*
@@ -24,6 +25,7 @@ class Third_Screen : Fragment() {
             val intent = Intent(activity, RegistrationPage::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            Animatoo.animateSlideUp(context);   //fire the animation
         }
 
         return view

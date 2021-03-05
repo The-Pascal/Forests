@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFAB00"
+    android:background="#57D9A3"
     tools:context=".onboarding.screens.Third_Screen">
 
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:scaleType="centerCrop"
         android:layout_width="400dp"
         android:layout_height="280dp"
         android:layout_marginTop="140dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
@@ -74,8 +73,8 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/circle_filled"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/circle_blank"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -85,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:src="@drawable/circle_blank"
+        android:src="@drawable/circle_filled"
         app:layout_constraintBottom_toBottomOf="@+id/imageView1"
         app:layout_constraintStart_toEndOf="@+id/imageView1"
         app:layout_constraintTop_toTopOf="@+id/imageView1"

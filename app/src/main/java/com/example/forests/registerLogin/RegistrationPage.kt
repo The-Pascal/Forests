@@ -79,9 +79,6 @@ class RegistrationPage : AppCompatActivity() {
             startActivityForResult(intent,0)
         }
 
-        //verify if user is logged in
-        verifyUserIsLoggedIn()
-
     }
 
 
@@ -226,17 +223,6 @@ class RegistrationPage : AppCompatActivity() {
                     startActivity(intent)
                 },1000)
             }
-    }
-
-    private fun verifyUserIsLoggedIn(){
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            // User is signed in
-            val intent = Intent(this, Main::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or ( Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-        }
     }
 
     companion object {
