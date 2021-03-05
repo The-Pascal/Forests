@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,13 @@
     android:background="@color/background"
     tools:context=".fragments.Profile">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <ImageView
-        android:id="@+id/achievement_black_imageView"
+        android:id="@+id/username_black_imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="36dp"
@@ -23,10 +27,10 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_profilew"
-        app:layout_constraintBottom_toBottomOf="@+id/achievement_black_imageView"
-        app:layout_constraintEnd_toEndOf="@+id/achievement_black_imageView"
-        app:layout_constraintStart_toStartOf="@+id/achievement_black_imageView"
-        app:layout_constraintTop_toTopOf="@+id/achievement_black_imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/username_black_imageView"
+        app:layout_constraintEnd_toEndOf="@+id/username_black_imageView"
+        app:layout_constraintStart_toStartOf="@+id/username_black_imageView"
+        app:layout_constraintTop_toTopOf="@+id/username_black_imageView" />
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/circularProgressBar"
@@ -38,10 +42,10 @@
         app:cpb_progressbar_color="#3f51b5"
         app:cpb_progressbar_width="6dp"
         app:cpb_round_border="false"
-        app:layout_constraintBottom_toBottomOf="@+id/achievement_black_imageView"
-        app:layout_constraintEnd_toEndOf="@+id/achievement_black_imageView"
-        app:layout_constraintStart_toStartOf="@+id/achievement_black_imageView"
-        app:layout_constraintTop_toTopOf="@+id/achievement_black_imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/username_black_imageView"
+        app:layout_constraintEnd_toEndOf="@+id/username_black_imageView"
+        app:layout_constraintStart_toStartOf="@+id/username_black_imageView"
+        app:layout_constraintTop_toTopOf="@+id/username_black_imageView" />
 
     <TextView
         android:id="@+id/achievement_name_textView"
@@ -53,9 +57,9 @@
         android:fontFamily="@font/avenir_heavy"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/achievement_black_imageView"
-        app:layout_constraintStart_toEndOf="@+id/achievement_black_imageView"
-        app:layout_constraintTop_toTopOf="@+id/achievement_black_imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/username_black_imageView"
+        app:layout_constraintStart_toEndOf="@+id/username_black_imageView"
+        app:layout_constraintTop_toTopOf="@+id/username_black_imageView"
         app:layout_constraintVertical_bias="0.26" />
 
     <TextView
@@ -114,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/target_textView" />
 
             <ImageView
-                android:id="@+id/achievement_black_imageView"
+                android:id="@+id/target_black_imageView"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="16dp"
@@ -128,10 +132,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_motivationw"
-                app:layout_constraintBottom_toBottomOf="@+id/achievement_black_imageView"
-                app:layout_constraintEnd_toEndOf="@+id/achievement_black_imageView"
-                app:layout_constraintStart_toStartOf="@+id/achievement_black_imageView"
-                app:layout_constraintTop_toTopOf="@+id/achievement_black_imageView" />
+                app:layout_constraintBottom_toBottomOf="@+id/target_black_imageView"
+                app:layout_constraintEnd_toEndOf="@+id/target_black_imageView"
+                app:layout_constraintStart_toStartOf="@+id/target_black_imageView"
+                app:layout_constraintTop_toTopOf="@+id/target_black_imageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -275,11 +279,16 @@
         android:id="@+id/recycler_view_profile_achievements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:nestedScrollingEnabled="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@+id/progress_cardView_2"
         app:layout_constraintStart_toStartOf="@+id/progress_cardView_1"
         app:layout_constraintTop_toBottomOf="@+id/achievement_textView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

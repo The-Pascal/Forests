@@ -35,14 +35,14 @@ class Profile : Fragment() {
         circularProgress(view)
 
 
-//        val adapter = GroupAdapter<ViewHolder>()
-//        recycler_view_profile_achievements.adapter = adapter
-//
-//
-//        adapter.add(AddRecycleItem());
-//        adapter.add(AddRecycleItem());
-//        adapter.add(AddRecycleItem());
-//        adapter.add(AddRecycleItem());
+        val adapter = GroupAdapter<ViewHolder>()
+        view.recycler_view_profile_achievements.adapter = adapter
+
+
+        adapter.add(AddRecycleItem());
+        adapter.add(AddRecycleItem());
+        adapter.add(AddRecycleItem());
+        adapter.add(AddRecycleItem());
 
         return view
     }
