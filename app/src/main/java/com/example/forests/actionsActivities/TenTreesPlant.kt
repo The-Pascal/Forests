@@ -1,4 +1,4 @@
-package com.example.forests.actionsActivities
+/*package com.example.forests.actionsActivities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,4 +14,4 @@ class TenTreesPlant : AppCompatActivity() {
         toolbar.title = "Plant Ten Trees"
         setSupportActionBar(toolbarFiveTrees)
     }
-}
+}*/

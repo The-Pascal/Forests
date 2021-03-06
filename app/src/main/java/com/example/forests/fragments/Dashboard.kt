@@ -84,30 +84,29 @@ class Dashboard : Fragment() {
             if (response != null && firstTime) {
                 airQualityData = response.data
                 val aqi= airQualityData[0].aqi.toInt()
-               /* val co= airQualityData[0].co.toInt()
-                val so2= airQualityData[0].so2.toInt()
-                val no2= airQualityData[0].no2.toInt()
-                val o3= airQualityData[0].o3.toInt()
-                val pm10= airQualityData[0].pm10.toInt()
-                val pm25= airQualityData[0].pm25.toInt()*/
+                /* val co= airQualityData[0].co.toInt()
+                 val so2= airQualityData[0].so2.toInt()
+                 val no2= airQualityData[0].no2.toInt()
+                 val o3= airQualityData[0].o3.toInt()
+                 val pm10= airQualityData[0].pm10.toInt()
+                 val pm25= airQualityData[0].pm25.toInt()*/
 
                 Log.i("AirQualityAPIresponse", response.data.toString())
                 if(firstTime) {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
-
-                 /*   v.findViewById<CountAnimationTextView>(R.id.coTextView)
-                        .setAnimationDuration(1000).countAnimation(0, co)
-                    v.findViewById<CountAnimationTextView>(R.id.so2TextView)
-                        .setAnimationDuration(1000).countAnimation(0, so2)
-                    v.findViewById<CountAnimationTextView>(R.id.no2TextView)
-                        .setAnimationDuration(1000).countAnimation(0, no2)
-                    v.findViewById<CountAnimationTextView>(R.id.o3TextView)
-                        .setAnimationDuration(1000).countAnimation(0, o3)
-                    v.findViewById<CountAnimationTextView>(R.id.pm10TextView)
-                        .setAnimationDuration(1000).countAnimation(0, pm10)
-                    v.findViewById<CountAnimationTextView>(R.id.pm25TextView)
-                        .setAnimationDuration(1000).countAnimation(0, pm25)*/
+                    /*   v.findViewById<CountAnimationTextView>(R.id.coTextView)
+                           .setAnimationDuration(1000).countAnimation(0, co)
+                       v.findViewById<CountAnimationTextView>(R.id.so2TextView)
+                           .setAnimationDuration(1000).countAnimation(0, so2)
+                       v.findViewById<CountAnimationTextView>(R.id.no2TextView)
+                           .setAnimationDuration(1000).countAnimation(0, no2)
+                       v.findViewById<CountAnimationTextView>(R.id.o3TextView)
+                           .setAnimationDuration(1000).countAnimation(0, o3)
+                       v.findViewById<CountAnimationTextView>(R.id.pm10TextView)
+                           .setAnimationDuration(1000).countAnimation(0, pm10)
+                       v.findViewById<CountAnimationTextView>(R.id.pm25TextView)
+                           .setAnimationDuration(1000).countAnimation(0, pm25)*/
                 }
                 firstTime=false
 
@@ -194,20 +193,20 @@ class Dashboard : Fragment() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                 userdata = p0.getValue(Userdata::class.java)!!
+                userdata = p0.getValue(Userdata::class.java)!!
                 Log.d("LatestMessages","Current User ${userdata}")
-                    var layoutId = when(userdata.presentaction){
-                        1 -> R.layout.ongoing_cards1
-                        2 -> R.layout.ongoing_cards2
-                        3-> R.layout.ongoing_cards3
-                        4-> R.layout.ongoing_cards4
-                        else -> R.layout.recommended_cards
-                    }
-                    var cardLayout = layoutInflater.inflate(layoutId,null)
-                    v.findViewById<FrameLayout>(R.id.currentActionFrameLayout).addView(cardLayout)
-
-                    addItemsRecyclerView(v, userdata.presentaction,userdata.ongoingaction)
+                var layoutId = when(userdata.presentaction){
+                    1 -> R.layout.ongoing_cards1
+                    2 -> R.layout.ongoing_cards2
+                    3-> R.layout.ongoing_cards3
+                    4-> R.layout.ongoing_cards4
+                    else -> R.layout.recommended_cards
                 }
+                var cardLayout = layoutInflater.inflate(layoutId,null)
+                v.findViewById<FrameLayout>(R.id.currentActionFrameLayout).addView(cardLayout)
+
+                addItemsRecyclerView(v, userdata.presentaction,userdata.ongoingaction)
+            }
         })
     }
 
@@ -298,8 +297,8 @@ class AddRecycleItemRecommended(val a: Int): Item<ViewHolder>(){
         return when(a){
             1 -> R.layout.recommended_cards1
             2 -> R.layout.recommended_cards2
-                3-> R.layout.recommended_cards3
-                4-> R.layout.recommended_cards4
+            3-> R.layout.recommended_cards3
+            4-> R.layout.recommended_cards4
             else -> R.layout.recommended_cards
         }
 
