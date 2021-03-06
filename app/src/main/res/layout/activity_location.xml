@@ -32,7 +32,7 @@
         android:background="@drawable/rounded_corner_registration"
         android:drawableLeft="@drawable/ic_baseline_home_24"
         android:ems="10"
-        android:hint=" City"
+        android:hint=" State"
         android:inputType="text"
         android:paddingLeft="16dp"
         android:textColor="@color/black"

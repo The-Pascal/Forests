@@ -56,67 +56,69 @@ class Location : AppCompatActivity(), LocationListener  {
             locationEnabled()
             if(!gpsStatus){
                 Toast.makeText(this, "Please turn on your location ", Toast.LENGTH_SHORT).show()
-            }else{
-                button.setOnClickListener {
-                    locationEnabled()
-                    button.startAnimation()
-                    if(!gpsStatus){
-                        Toast.makeText(this, "Please turn on your location ", Toast.LENGTH_SHORT).show()
-                        button.revertAnimation();
-                    }else{
-                        if(!cityEditText.text.isEmpty()){
-                            var flag=1;
-                            state  = cityEditText.text.toString()
-                            for(i in state){
-                                if(!i.isLetter()){
-                                    Toast.makeText(
-                                        this,
-                                        "Please Enter correct city without any digit and special caracters",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    button.revertAnimation();
-                                    flag=0;
-                                }
-                            }
-                            locationEnabled()
-                            if (gpsStatus){
-                                if(flag==1 && state!="State"){
+            }
+        }
 
-                                    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
-                                        this
-                                    )
-                                    var editor: SharedPreferences.Editor? = sharedPreferences.edit()
-                                    editor?.putString("state", state)
-                                    editor?.apply()
-                                    getLocation()
-                                }else{
-                                    Toast.makeText(
-                                        this,
-                                        "Please Enter correct city without any digit and special caracters",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    button.revertAnimation();
-                                }
-                            }else{
+
+        button.setOnClickListener {
+            locationEnabled()
+            button.startAnimation()
+            if(!gpsStatus){
+                Toast.makeText(this, "Please turn on your location ", Toast.LENGTH_SHORT).show()
+                button.revertAnimation();
+            }else{
+                if(!cityEditText.text.isEmpty()){
+                    var flag=1;
+                    state  = cityEditText.text.toString()
+                    for(i in state){
+                        if(!i.isLetter()){
+                            if(!i.isWhitespace()){
                                 Toast.makeText(
                                     this,
-                                    "Please turn on your location ",
+                                    "Please Enter correct city without any digit and special caracters",
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 button.revertAnimation();
-
+                                flag=0;
                             }
 
-
-
-                        }else{
-                            Toast.makeText(this, "Please Enter your city", Toast.LENGTH_SHORT).show()
-                            button.revertAnimation();
                         }
                     }
+                    locationEnabled()
+                    if (gpsStatus){
+                        if(flag==1 && state!="State"){
 
+                            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+                                this
+                            )
+                            var editor: SharedPreferences.Editor? = sharedPreferences.edit()
+                            editor?.putString("state", state)
+                            editor?.apply()
+                            getLocation()
+                        }else{
+                            Toast.makeText(
+                                this,
+                                "Please Enter correct city without any digit and special caracters",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            button.revertAnimation();
+                        }
+                    }else{
+                        Toast.makeText(
+                            this,
+                            "Please turn on your location ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        button.revertAnimation();
+
+                    }
+
+
+
+                }else{
+                    Toast.makeText(this, "Please Enter your city", Toast.LENGTH_SHORT).show()
+                    button.revertAnimation();
                 }
-
             }
 
         }
