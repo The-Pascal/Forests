@@ -250,7 +250,7 @@ class Dashboard : Fragment() {
 
     private fun writeFirebaseData(lattitude:String,  longitude:String,  targertrees:Int,  normalizedscore:Int,  plantedtrees:Int,  rating:String){
         val userdata = Userdata(listOf<Int>(0),lattitude, longitude,  normalizedscore,listOf<Int>(0), plantedtrees,0, rating,targertrees,
-            0,0,0,0)
+            0,0,0,0,0)
         val uid = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
         ref.setValue(userdata)

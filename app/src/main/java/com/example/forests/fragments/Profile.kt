@@ -1,12 +1,19 @@
 package com.example.forests.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.preference.PreferenceManager
+import com.daasuu.cat.CountAnimationTextView
 import com.example.forests.R
+import com.example.forests.Userdata
 import com.example.forests.registerLogin.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -23,34 +30,43 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class Profile : Fragment() {
+    private lateinit var userdata: Userdata
+    private lateinit var v : View
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+
+        getUserData()
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        v = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        fetchCurrentUser(view)
+        fetchCurrentUser(v)
 
         // circular progress
-        circularProgress(view)
+        circularProgress(v)
+        getUserData()
 
-        addItemsRecyclerView(view)
-
-        return view
+        return v
     }
 
 
-    private fun addItemsRecyclerView(view: View){
+    private fun addItemsRecyclerView(view: View, completed:List<Int>){
         val adapter = GroupAdapter<ViewHolder>()
         view.recycler_view_profile_achievements.adapter = adapter
 
-
-        adapter.add(AddRecycleItem());
-        adapter.add(AddRecycleItem());
-        adapter.add(AddRecycleItem());
-        adapter.add(AddRecycleItem());
+        for(i in completed){
+            adapter.add(AddRecycleItem(i));
+        }
     }
 
 
@@ -90,12 +106,58 @@ class Profile : Fragment() {
             progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
         }
     }
+    private fun getUserData(){
+        val uid = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
 
+            override fun onDataChange(p0: DataSnapshot) {
+                userdata = p0.getValue(Userdata::class.java)!!
+                Log.d("LatestMessages", "Profile  ${userdata}")
+
+                v.findViewById<CountAnimationTextView>(R.id.number_trees_planted_textView)
+                    .setAnimationDuration(1000).countAnimation(0, userdata.plantedtrees)
+                v.findViewById<CountAnimationTextView>(R.id.number_trees_referred_textView)
+                    .setAnimationDuration(1000).countAnimation(0, userdata.treesreferred)
+
+                addItemsRecyclerView(v, userdata.completedaction)
+
+            }
+        })
+    }
+
+
+    private fun share( a:Int){
+        var message= ""
+        when(a){
+            0 -> "Hey!! I achieve Environment enthusiast status on joining Forest App. You can be the same and work for the sustainable future! "
+            1 -> "Hey!! I planted 5 trees after joining Forest App. You can do the same and work for the sustainable future! "
+            2 -> "Hey!! I planted 10 trees after joining Forest App. You can do the same and work for the sustainable future! "
+            3-> "Hey!! I helped spreading awareness regarding climate change after joining Forest App. You can do the same and work for the sustainable future! "
+            4-> "Hey!! I'm using Public Transport after joining Forest App. You can do the same and work for the sustainable future! "
+            else -> " "
+        }
+            val intent= Intent()
+            intent.action=Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT,message)
+            intent.type="text/plain"
+            startActivity(Intent.createChooser(intent,"Share To:"))
+
+    }
 }
 
-class AddRecycleItem(): Item<ViewHolder>(){
+class AddRecycleItem(var a:Int): Item<ViewHolder>(){
     override fun getLayout(): Int {
-        return R.layout.achievement_recycler_items
+
+        return when(a){
+            1 -> R.layout.achievement_recycler_items1
+            2 -> R.layout.achievement_recycler_items2
+            3-> R.layout.achievement_recycler_items3
+            4-> R.layout.achievement_recycler_items4
+            else -> R.layout.achievement_recycler_items0
+        }
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
