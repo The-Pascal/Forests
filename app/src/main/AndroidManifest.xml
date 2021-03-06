@@ -13,17 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".actionsActivities.SendReferral">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".actionsActivities.TenTreesPlant"></activity>
         <activity android:name=".actionsActivities.FiveTreesPlant"></activity>
         <activity android:name=".Location" />
         <activity android:name=".registerLogin.RegistrationPage" />
         <activity android:name=".splashScreen.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".onboarding.Onboarding" />
         <activity android:name=".registerLogin.loginpage" />
