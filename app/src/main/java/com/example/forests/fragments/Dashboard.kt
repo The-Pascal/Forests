@@ -20,6 +20,7 @@ import com.daasuu.cat.CountAnimationTextView
 import com.example.forests.ForestData
 import com.example.forests.R
 import com.example.forests.Userdata
+import com.example.forests.actionsActivities.FiveTreesPlant
 import com.example.forests.actionsActivities.SendReferral
 import com.example.forests.data.airQualityDataService
 import com.example.forests.data.airQualityResponse.Data
@@ -42,7 +43,7 @@ class Dashboard : Fragment() {
     private lateinit var lattitude:String
     private lateinit var longitude:String
     private var targertrees = 0
-    private var normalizedscore=0
+    var normal: Int = 0
     private var plantedtrees=0
     private  var rating:String = "Rookie"
     private  lateinit var state:String
@@ -87,29 +88,11 @@ class Dashboard : Fragment() {
             if (response != null && firstTime) {
                 airQualityData = response.data
                 val aqi= airQualityData[0].aqi.toInt()
-                /* val co= airQualityData[0].co.toInt()
-                 val so2= airQualityData[0].so2.toInt()
-                 val no2= airQualityData[0].no2.toInt()
-                 val o3= airQualityData[0].o3.toInt()
-                 val pm10= airQualityData[0].pm10.toInt()
-                 val pm25= airQualityData[0].pm25.toInt()*/
 
                 Log.i("AirQualityAPIresponse", response.data.toString())
                 if(firstTime) {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
-                    /*   v.findViewById<CountAnimationTextView>(R.id.coTextView)
-                           .setAnimationDuration(1000).countAnimation(0, co)
-                       v.findViewById<CountAnimationTextView>(R.id.so2TextView)
-                           .setAnimationDuration(1000).countAnimation(0, so2)
-                       v.findViewById<CountAnimationTextView>(R.id.no2TextView)
-                           .setAnimationDuration(1000).countAnimation(0, no2)
-                       v.findViewById<CountAnimationTextView>(R.id.o3TextView)
-                           .setAnimationDuration(1000).countAnimation(0, o3)
-                       v.findViewById<CountAnimationTextView>(R.id.pm10TextView)
-                           .setAnimationDuration(1000).countAnimation(0, pm10)
-                       v.findViewById<CountAnimationTextView>(R.id.pm25TextView)
-                           .setAnimationDuration(1000).countAnimation(0, pm25)*/
                 }
                 firstTime=false
 
@@ -125,6 +108,7 @@ class Dashboard : Fragment() {
 
             ref.get().addOnSuccessListener {
                 getUserData()
+
             }.addOnFailureListener{
                 initializeUserData(forestData)
                 Log.e("firebase", "Error getting data", it)
@@ -136,25 +120,17 @@ class Dashboard : Fragment() {
             editor?.putString("firstTimeUserData", true.toString())
             editor?.apply()
         }
+        circularloader(v)
 
         return v;
     }
 
-
-
-
     private fun circularloader(view: View){
         val circularProgressBar = view.findViewById<CircularProgressBar>(R.id.circularProgressBar)
         circularProgressBar.apply {
-            setProgressWithAnimation(165f, 4000) // =1s
-            // Set Progress Max
-            progressMax = 200f
-            // Set ProgressBar Color
-//            progressBarColor = Color.BLACK
-            // Set background ProgressBar Color
-//            backgroundProgressBarColor = Color.WHITE
-//            progressBarWidth = 4f // in DP
-            // Other
+            Log.e("normal", normal.toString())
+            setProgressWithAnimation(216f, 4000) // =1s
+            progressMax = 1000f
             roundBorder = true
             startAngle = 180f
 //            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
@@ -173,6 +149,7 @@ class Dashboard : Fragment() {
         Log.d("LatestMessages","forestData ${forestData.geoarea.toInt()}")
 
         var normalizedscore = 1000- aqi.div(Math.max(1,totalforestcover.div(Math.max(1,totalArea))))
+        normal = normalizedscore
         Log.d("LatestMessages","normalizedscore ${normalizedscore}")
 
         var plantedtrees =0;
@@ -211,6 +188,8 @@ class Dashboard : Fragment() {
                 addItemsRecyclerView(v, userdata.presentaction,userdata.ongoingaction)
             }
         })
+
+
     }
 
     private fun getForestData(state: String){
@@ -232,7 +211,6 @@ class Dashboard : Fragment() {
                 var forestDensity = totalArea?.let { Math.max(1, it) }?.let { totalforestcover?.div(it) }!!
                 val roundedForestDensity:Double = String.format("%.2f", forestDensity).toDouble()
 
-                circularloader(v)
 
                 Log.d("LatestMessages","Current User ${roundedForestDensity}")
 
@@ -278,25 +256,20 @@ class Dashboard : Fragment() {
         val adapter = GroupAdapter<ViewHolder>()
         view.recommended_recyclerView.adapter = adapter
 
+        val i:Int=1
         for(i in 1..4){
             if (i!=userdata.presentaction){
                 adapter.add(AddRecycleItemRecommended(i))
-
             }
         }
-        /*adapter.setOnItemClickListener{item, view ->
+        adapter.setOnItemClickListener{item, view ->
+            val userItem = item as AddRecycleItemRecommended
+            val intent= Intent(view.context , FiveTreesPlant::class.java)
+            startActivity(intent)
+        }
 
-                val userItem = item as AddRecycleItemRecommended
-                val intent= Intent(view.context , SendReferral::class.java)
-                startActivity(intent)
-
-
-        }*/
 
     }
-
-
-
 
 }
 

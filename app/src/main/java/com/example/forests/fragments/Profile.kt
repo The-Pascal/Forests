@@ -81,6 +81,7 @@ class Profile : Fragment() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 val currentUser = p0.getValue(Users::class.java)
+                view.number_trees_planted_textView.text = currentUser?.treesPlanted.toString()
                 view.achievement_name_textView.text = currentUser?.username
                 view.email_profile.text = currentUser?.email
                 Picasso.get().load(currentUser?.imageUrl).into(view.userprofile_imageView)
@@ -139,11 +140,11 @@ class Profile : Fragment() {
             4-> "Hey!! I'm using Public Transport after joining Forest App. You can do the same and work for the sustainable future! "
             else -> " "
         }
-        val intent= Intent()
-        intent.action=Intent.ACTION_SEND
-        intent.putExtra(Intent.EXTRA_TEXT,message)
-        intent.type="text/plain"
-        startActivity(Intent.createChooser(intent,"Share To:"))
+            val intent= Intent()
+            intent.action=Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT,message)
+            intent.type="text/plain"
+            startActivity(Intent.createChooser(intent,"Share To:"))
 
     }
 }
