@@ -1,6 +1,8 @@
 package com.example.forests.fragments
 
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build.USER
 import android.os.Bundle
 import android.os.FileObserver
 import android.util.Log
@@ -18,6 +20,7 @@ import com.daasuu.cat.CountAnimationTextView
 import com.example.forests.ForestData
 import com.example.forests.R
 import com.example.forests.Userdata
+import com.example.forests.actionsActivities.SendReferral
 import com.example.forests.data.airQualityDataService
 import com.example.forests.data.airQualityResponse.Data
 import com.example.forests.data.revGeoCodingService
@@ -277,10 +280,18 @@ class Dashboard : Fragment() {
 
         for(i in 1..4){
             if (i!=userdata.presentaction){
-                adapter.add(AddRecycleItemRecommended(i));
+                adapter.add(AddRecycleItemRecommended(i))
 
             }
         }
+        /*adapter.setOnItemClickListener{item, view ->
+
+                val userItem = item as AddRecycleItemRecommended
+                val intent= Intent(view.context , SendReferral::class.java)
+                startActivity(intent)
+
+
+        }*/
 
     }
 
@@ -302,6 +313,10 @@ class AddRecycleItemRecommended(val a: Int): Item<ViewHolder>(){
             else -> R.layout.recommended_cards
         }
 
+    }
+
+    override fun getItem(position: Int): Item<*> {
+        return super.getItem(position)
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
