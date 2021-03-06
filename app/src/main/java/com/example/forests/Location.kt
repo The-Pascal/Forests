@@ -34,9 +34,9 @@ class Location : AppCompatActivity(), LocationListener  {
     private lateinit var longitude:String
     private lateinit var state:String
     var gpsStatus: Boolean = false
+    var stateList:List<String> = listOf("andhra pradesh", "arunachal pradesh","assam","bihar","chhattisgarh","delhi","new delhi","goa","gujarat","haryana","himachal pradesh","jammu and kashmir","jharkhand","karnataka", "kerala","madhya pradesh","maharashtra","meghalaya","manipur","mizoram","nagaland","orissa","punjab","rajasthan","sikkim","tamil nadu","telangana","tripura","uttar pradesh","uttarakhand","west bengal","andaman and nicobar","chandigarh","dadar nagar haveli","daman and diu","lakshadweep","puducherry")
 
 
-    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
@@ -69,8 +69,9 @@ class Location : AppCompatActivity(), LocationListener  {
             }else{
                 if(!cityEditText.text.isEmpty()){
                     var flag=1;
-                    state  = cityEditText.text.toString()
-                    for(i in state){
+                    var temp  = cityEditText.text.toString()
+
+                    for(i in temp){
                         if(!i.isLetter()){
                             if(!i.isWhitespace()){
                                 Toast.makeText(
@@ -84,36 +85,49 @@ class Location : AppCompatActivity(), LocationListener  {
 
                         }
                     }
-                    locationEnabled()
-                    if (gpsStatus){
-                        if(flag==1 && state!="State"){
 
-                            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
-                                this
-                            )
-                            var editor: SharedPreferences.Editor? = sharedPreferences.edit()
-                            editor?.putString("state", state)
-                            editor?.apply()
-                            getLocation()
+                    var state = ""
+
+                    for (c in temp) {
+                        state += when {
+                            c.isUpperCase() -> c.toLowerCase()
+                            c.isWhitespace() -> " "
+                            else -> c
+                        }
+                    }
+                    Log.d("state", state)
+                    if(state in stateList) {
+
+                        locationEnabled()
+                        if (gpsStatus){
+                            if(flag==1 && state!="State"){
+
+                                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+                                    this
+                                )
+                                var editor: SharedPreferences.Editor? = sharedPreferences.edit()
+                                editor?.putString("state", state)
+                                editor?.apply()
+                                getLocation()
+                            }else{
+                                Toast.makeText(
+                                    this,
+                                    "Please Enter correct city without any digit and special caracters",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                button.revertAnimation();
+                            }
                         }else{
                             Toast.makeText(
                                 this,
-                                "Please Enter correct city without any digit and special caracters",
+                                "Please turn on your location ",
                                 Toast.LENGTH_SHORT
                             ).show()
                             button.revertAnimation();
+
                         }
-                    }else{
-                        Toast.makeText(
-                            this,
-                            "Please turn on your location ",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        button.revertAnimation();
 
                     }
-
-
 
                 }else{
                     Toast.makeText(this, "Please Enter your city", Toast.LENGTH_SHORT).show()
@@ -122,12 +136,6 @@ class Location : AppCompatActivity(), LocationListener  {
             }
 
         }
-
-
-
-
-        //tvGpsLocation = findViewById(R.id.tvGpsLocation)
-
 
     }
 
@@ -157,7 +165,7 @@ class Location : AppCompatActivity(), LocationListener  {
 
     override fun onLocationChanged(p0: Location) {
         //tvGpsLocation.text = "Latitude:  ${p0.latitude}    Longitude:   ${p0.longitude}"
-        println("--------------->$p0")
+        Log.d("LatestMessages","Location Changed --------------->")
 
         val intent = Intent(this@Location, Main::class.java)
 

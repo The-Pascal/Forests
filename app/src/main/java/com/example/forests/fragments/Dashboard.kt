@@ -1,12 +1,13 @@
 package com.example.forests.fragments
 
-import android.app.ProgressDialog.show
-import android.graphics.Color
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.FileObserver
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.cardview.widget.CardView
@@ -20,21 +21,16 @@ import com.example.forests.Userdata
 import com.example.forests.data.airQualityDataService
 import com.example.forests.data.airQualityResponse.Data
 import com.example.forests.data.revGeoCodingService
-import com.example.forests.data.stateForestDataResponse.stateForestData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.firestore.auth.User
-import com.google.firebase.ktx.Firebase
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.math.RoundingMode
 import kotlin.math.roundToInt
 
 
@@ -45,8 +41,10 @@ class Dashboard : Fragment() {
     private var targertrees = 0
     private var normalizedscore=0
     private var plantedtrees=0
-    private  lateinit var rating:String
+    private  var rating:String = "Rookie"
     private  lateinit var state:String
+    private lateinit var userdata: Userdata
+    private lateinit var forestData: ForestData
     private  lateinit var airQualityData: List<Data>
     private  lateinit var addressLocationData: List<Data>
     var firstTime = true;
@@ -63,7 +61,7 @@ class Dashboard : Fragment() {
         Log.i("Lattitude", lattitude.toString())
         Log.i("Longitude", longitude.toString())
 
-
+        getForestData(state)
 
     }
 
@@ -72,16 +70,11 @@ class Dashboard : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        v= inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val fragmentManager: FragmentManager
 
-        v.findViewById<CardView>(R.id.airQualityCardView).setOnClickListener {
-            // val modalSheetDialogFragment = infoSheetDialogFragment()
-            //.show(supportFragmentManager,infoSheetDialogFragment.TAG)
-        }
-        //val aqitv = v.findViewById<CountAnimationTextView>(R.id.airQualityData);
-        addItemsRecyclerView(v)
+
+        v= inflater.inflate(R.layout.fragment_dashboard, container, false)
+
+        getForestData(state)
 
         val apiService = airQualityDataService()
         Log.d("LatestMessages","Current User ${state}")
@@ -121,6 +114,26 @@ class Dashboard : Fragment() {
 
             }
         }
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+        if(sharedPreferences.contains("firstTimeUserData")){
+            val uid = FirebaseAuth.getInstance().uid
+            val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+
+            ref.get().addOnSuccessListener {
+                getUserData()
+            }.addOnFailureListener{
+                initializeUserData(forestData)
+                Log.e("firebase", "Error getting data", it)
+            }
+
+        }else{
+            getForestData(state)
+            var editor: SharedPreferences.Editor? = sharedPreferences.edit()
+            editor?.putString("firstTimeUserData", true.toString())
+            editor?.apply()
+        }
+
         return v;
     }
 
@@ -147,57 +160,6 @@ class Dashboard : Fragment() {
         }
     }
 
-
-    private fun getForestData(state: String){
-        Log.d("LatestMessages","Current User ${state}")
-
-        val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
-
-
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                val forestData = p0.getValue(ForestData::class.java)
-                Log.d("LatestMessages","Current User ${forestData}")
-                val totalforestcover = (forestData?.actualforestcover?.toInt()
-                    ?.plus(forestData.openforest?.toInt()))?.times(100)?.toDouble()
-                val totalArea = forestData?.geoarea?.toInt()
-                var forestDensity = totalArea?.let {
-                    Math.max(1, it
-                    )
-                }?.let { totalforestcover?.div(it) }!!
-
-
-                val roundedForestDensity:Double = String.format("%.2f", forestDensity).toDouble()
-
-                circularloader(v)
-
-
-                Log.d("LatestMessages","Current User ${roundedForestDensity}")
-
-
-
-                v.findViewById<CountAnimationTextView>(R.id.forestDensityData).text = roundedForestDensity.toString()
-                if (forestData != null) {
-                    initializeUserData(forestData)
-                }
-            }
-
-        })
-    }
-
-    private fun addItemsRecyclerView(view: View){
-        val adapter = GroupAdapter<ViewHolder>()
-        view.recommended_recyclerView.adapter = adapter
-
-
-        adapter.add(AddRecycleItemRecommended());
-        adapter.add(AddRecycleItemRecommended());
-        adapter.add(AddRecycleItemRecommended());
-        adapter.add(AddRecycleItemRecommended());
-    }
     private fun initializeUserData(forestData:ForestData){
 
         val aqi = airQualityData[0].aqi.toInt()
@@ -207,21 +169,84 @@ class Dashboard : Fragment() {
         Log.d("LatestMessages","totalforestcover $totalforestcover")
         Log.d("LatestMessages","forestData ${forestData.geoarea.toInt()}")
 
-        var normalizedscore = aqi.div(Math.max(1,totalforestcover.div(Math.max(1,totalArea))))
+        var normalizedscore = 1000- aqi.div(Math.max(1,totalforestcover.div(Math.max(1,totalArea))))
         Log.d("LatestMessages","normalizedscore ${normalizedscore}")
 
         var plantedtrees =0;
 
-        if(normalizedscore <500){
+        if(normalizedscore >500){
             targertrees = 4
-            v.findViewById<CountAnimationTextView>(R.id.treePlantingData).setAnimationDuration(3000).countAnimation(0,targertrees)
-
+            v.findViewById<CountAnimationTextView>(R.id.normalizedScoreData).setAnimationDuration(3000).countAnimation(0,targertrees)
         }else{
-            targertrees = Math.ceil(((normalizedscore/100).toDouble())).roundToInt()
-            v.findViewById<CountAnimationTextView>(R.id.treePlantingData).setAnimationDuration(3000).countAnimation(0,targertrees)
+            targertrees = Math.ceil((((1000-normalizedscore)/100).toDouble())).roundToInt()
+            v.findViewById<CountAnimationTextView>(R.id.normalizedScoreData).setAnimationDuration(3000).countAnimation(0,targertrees)
+            v.findViewById<TextView>(R.id.statusText).statusText.text = "Critical! environment"
         }
         writeFirebaseData(lattitude,longitude,targertrees,normalizedscore,plantedtrees,rating)
     }
+
+    private fun getUserData(){
+        val uid = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                 userdata = p0.getValue(Userdata::class.java)!!
+                Log.d("LatestMessages","Current User ${userdata}")
+                    var layoutId = when(userdata.presentaction){
+                        1 -> R.layout.ongoing_cards1
+                        2 -> R.layout.ongoing_cards2
+                        3-> R.layout.ongoing_cards3
+                        4-> R.layout.ongoing_cards4
+                        else -> R.layout.recommended_cards
+                    }
+                    var cardLayout = layoutInflater.inflate(layoutId,null)
+                    v.findViewById<FrameLayout>(R.id.currentActionFrameLayout).addView(cardLayout)
+
+                    addItemsRecyclerView(v, userdata.presentaction,userdata.ongoingaction)
+                }
+        })
+    }
+
+    private fun getForestData(state: String){
+        Log.d("LatestMessages","Current User ${state}")
+
+        val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                forestData = p0.getValue(ForestData::class.java)!!
+
+                Log.d("LatestMessages","Current User ${forestData}")
+
+                val totalforestcover = (forestData?.actualforestcover?.toInt()?.plus(forestData.openforest?.toInt()))?.times(100)?.toDouble()
+                val totalArea = forestData?.geoarea?.toInt()
+                var forestDensity = totalArea?.let { Math.max(1, it) }?.let { totalforestcover?.div(it) }!!
+                val roundedForestDensity:Double = String.format("%.2f", forestDensity).toDouble()
+
+                circularloader(v)
+
+                Log.d("LatestMessages","Current User ${roundedForestDensity}")
+
+                v.findViewById<CountAnimationTextView>(R.id.forestDensityData).text = roundedForestDensity.toString()
+
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+                if(!sharedPreferences.contains("firstTimeUserData")){
+                    initializeUserData(forestData)
+                    var editor: SharedPreferences.Editor? = sharedPreferences.edit()
+                    editor?.putString("firstTimeUserData", true.toString())
+                    editor?.apply()
+                }
+            }
+
+        })
+    }
+
 
     private fun writeFirebaseData(lattitude:String,  longitude:String,  targertrees:Int,  normalizedscore:Int,  plantedtrees:Int,  rating:String){
         val userdata = Userdata(listOf<Int>(0),lattitude, longitude,  normalizedscore,listOf<Int>(0), plantedtrees,0, rating,targertrees,
@@ -230,8 +255,6 @@ class Dashboard : Fragment() {
         val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
         ref.setValue(userdata)
     }
-
-
 
     @UiThread
     suspend fun makeNetworkRequest() {
@@ -246,14 +269,39 @@ class Dashboard : Fragment() {
         }
     }
 
+    private fun addItemsRecyclerView(view: View, presentaction:Int, ongoingaction:List<Int>){
+
+
+        val adapter = GroupAdapter<ViewHolder>()
+        view.recommended_recyclerView.adapter = adapter
+
+        for(i in 1..4){
+            if (i!=userdata.presentaction){
+                adapter.add(AddRecycleItemRecommended(i));
+
+            }
+        }
+
+    }
+
+
+
 
 }
 
 
 
-class AddRecycleItemRecommended(): Item<ViewHolder>(){
+class AddRecycleItemRecommended(val a: Int): Item<ViewHolder>(){
+
     override fun getLayout(): Int {
-        return R.layout.recommended_cards
+        return when(a){
+            1 -> R.layout.recommended_cards1
+            2 -> R.layout.recommended_cards2
+                3-> R.layout.recommended_cards3
+                4-> R.layout.recommended_cards4
+            else -> R.layout.recommended_cards
+        }
+
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {

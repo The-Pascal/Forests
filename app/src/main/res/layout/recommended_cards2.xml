@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/avenir_heavy"
-                android:text="Environment Goals"
+                android:text="Grow 10 Trees"
                 android:textColor="@color/subtxt_black"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"
                 android:maxWidth="220dp"
-                android:text="Complete these goals for a sustainable future"
+                android:text="Grow 10 trees in one month "
                 android:textSize="13dp"
                 app:layout_constraintStart_toStartOf="@+id/target_textView"
                 app:layout_constraintTop_toBottomOf="@+id/target_textView" />
