@@ -81,7 +81,7 @@ class Profile : Fragment() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 val currentUser = p0.getValue(Users::class.java)
-                view.number_trees_planted_textView8.text = currentUser?.treesPlanted.toString()
+                view.number_trees_planted_textView.text = currentUser?.treesPlanted.toString()
                 view.achievement_name_textView.text = currentUser?.username
                 view.email_profile.text = currentUser?.email
                 Picasso.get().load(currentUser?.imageUrl).into(view.userprofile_imageView)
