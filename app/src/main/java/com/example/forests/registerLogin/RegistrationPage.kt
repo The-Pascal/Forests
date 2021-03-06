@@ -50,6 +50,14 @@ class RegistrationPage : AppCompatActivity() {
             firebaseAuthwithEmailPassword()
         }
 
+        facebook_register.setOnClickListener {
+            Toast.makeText(this,"Support Not Availaible!! ",Toast.LENGTH_SHORT).show()
+        }
+
+        apple_register.setOnClickListener {
+            Toast.makeText(this,"Support Not Availaible!! ",Toast.LENGTH_SHORT).show()
+        }
+
         google_register.setOnClickListener{
 
             registerbtn.startAnimation()

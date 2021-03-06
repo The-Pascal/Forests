@@ -54,6 +54,15 @@ class loginpage : AppCompatActivity() {
 
     private fun login(){
 
+        imageView2.setOnClickListener {
+            Toast.makeText(this,"Support Not Availaible!! ",Toast.LENGTH_SHORT).show()
+
+        }
+
+        imageView3.setOnClickListener {
+            Toast.makeText(this,"Support Not Availaible!! ",Toast.LENGTH_SHORT).show()
+        }
+
         google_login.setOnClickListener {
 
             login_button_login.startAnimation()
