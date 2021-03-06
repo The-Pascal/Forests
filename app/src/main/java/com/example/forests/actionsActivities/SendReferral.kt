@@ -16,9 +16,9 @@ class SendReferral : AppCompatActivity() {
         setContentView(R.layout.activity_send_referral)
 
 //        createLink()
-        send_referral_btn.setOnClickListener {
+//        send_referral_btn.setOnClickListener {
 //            sendInvitation()
-        }
+//        }
     }
 //
 //    private var mInvitationUrl: Uri? = null
