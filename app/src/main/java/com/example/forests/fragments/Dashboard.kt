@@ -20,7 +20,11 @@ import com.google.firebase.database.*
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Item
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -59,6 +63,8 @@ class Dashboard : Fragment() {
 
         circularloader(v)
 
+        addItemsRecyclerView(v)
+
         //val aqitv = v.findViewById<CountAnimationTextView>(R.id.airQualityData);
 
         val apiService = airQualityDataService()
@@ -81,12 +87,12 @@ class Dashboard : Fragment() {
 
                 val twForestDensity = v.findViewById<TextView>(R.id.forestDensityData)
               v.findViewById<CountAnimationTextView>(R.id.airQualityData).setAnimationDuration(1000).countAnimation(0,aqi)
-                 v.findViewById<CountAnimationTextView>(R.id.coTextView).setAnimationDuration(1000).countAnimation(0,co)
-                v.findViewById<CountAnimationTextView>(R.id.so2TextView).setAnimationDuration(1000).countAnimation(0,so2)
-                v.findViewById<CountAnimationTextView>(R.id.no2TextView).setAnimationDuration(1000).countAnimation(0,no2)
-                v.findViewById<CountAnimationTextView>(R.id.o3TextView).setAnimationDuration(1000).countAnimation(0,o3)
-                v.findViewById<CountAnimationTextView>(R.id.pm10TextView).setAnimationDuration(1000).countAnimation(0,pm10)
-                v.findViewById<CountAnimationTextView>(R.id.pm25TextView).setAnimationDuration(1000).countAnimation(0,pm25)
+//                 v.findViewById<CountAnimationTextView>(R.id.coTextView).setAnimationDuration(1000).countAnimation(0,co)
+//                v.findViewById<CountAnimationTextView>(R.id.so2TextView).setAnimationDuration(1000).countAnimation(0,so2)
+//                v.findViewById<CountAnimationTextView>(R.id.no2TextView).setAnimationDuration(1000).countAnimation(0,no2)
+//                v.findViewById<CountAnimationTextView>(R.id.o3TextView).setAnimationDuration(1000).countAnimation(0,o3)
+//                v.findViewById<CountAnimationTextView>(R.id.pm10TextView).setAnimationDuration(1000).countAnimation(0,pm10)
+//                v.findViewById<CountAnimationTextView>(R.id.pm25TextView).setAnimationDuration(1000).countAnimation(0,pm25)
                 val twTreePlatingData = v.findViewById<TextView>(R.id.treePlantingData)
 
                 twForestDensity.text = airQualityData[0].no2.toString()
@@ -94,6 +100,17 @@ class Dashboard : Fragment() {
             }
         }
             return v;
+    }
+
+    private fun addItemsRecyclerView(view: View){
+        val adapter = GroupAdapter<ViewHolder>()
+        view.recommended_recyclerView.adapter = adapter
+
+
+        adapter.add(AddRecycleItemRecommended());
+        adapter.add(AddRecycleItemRecommended());
+        adapter.add(AddRecycleItemRecommended());
+        adapter.add(AddRecycleItemRecommended());
     }
 
 
@@ -147,6 +164,20 @@ class Dashboard : Fragment() {
     }
 }
 
+
+class AddRecycleItemRecommended(): Item<ViewHolder>(){
+    override fun getLayout(): Int {
+        return R.layout.recommended_cards
+    }
+
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+
+    }
+
+}
+
+
 data class ForestData( var actualforestcover: Long, var geoarea:Long,var  noforest:Long, var openforest:Long,var states:String){
     constructor(): this(0,0,0,0,"")
 }
+

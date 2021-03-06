@@ -36,8 +36,13 @@ class Profile : Fragment() {
         // circular progress
         circularProgress(view)
 
+        addItemsRecyclerView(view)
+
+        return view
+    }
 
 
+    private fun addItemsRecyclerView(view: View){
         val adapter = GroupAdapter<ViewHolder>()
         view.recycler_view_profile_achievements.adapter = adapter
 
@@ -46,9 +51,8 @@ class Profile : Fragment() {
         adapter.add(AddRecycleItem());
         adapter.add(AddRecycleItem());
         adapter.add(AddRecycleItem());
-
-        return view
     }
+
 
     private fun fetchCurrentUser(view: View){
         val uid = FirebaseAuth.getInstance().uid

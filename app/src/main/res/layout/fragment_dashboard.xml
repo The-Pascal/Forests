@@ -3,628 +3,373 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.Dashboard"
-    android:background="#203cc3">
+    android:layout_height="wrap_content"
+    android:background="#203cc3"
+    tools:context=".fragments.Dashboard">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_background"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/upperFrame"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp">
-
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/circularProgressBar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="28dp"
-                app:cpb_background_progressbar_color="#16298f"
-                app:cpb_background_progressbar_width="15dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="#60cbf6"
-                app:cpb_progressbar_width="15dp"
-                app:cpb_round_border="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.daasuu.cat.CountAnimationTextView
-                android:id="@+id/treePlantingData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_heavy"
-                android:layout_marginTop="50dp"
-                android:text="216"
-                android:textColor="#FFFFFF"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
-
-            <TextView
-                android:id="@+id/textViewNoOfTreesToPlant"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trees To Plant "
-                android:textColor="#FFFFFF"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
-                app:layout_constraintHorizontal_bias="0.506"
-                app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
-                app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_white_account_circle_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_rounded_button"
-                android:orientation="horizontal"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_marginTop="25dp"
-                app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
-                app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
-                app:layout_constraintTop_toBottomOf="@+id/circularProgressBar">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_white_account_circle_24" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/home_rounded_button"
-                    android:fontFamily="@font/avenir_medium"
-                    android:text="  Congratulation! You are good"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
-                    app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
-                    app:layout_constraintTop_toBottomOf="@+id/circularProgressBar" />
-
-            </LinearLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background"
-            android:layout_marginBottom="-30dp"
-            app:cardCornerRadius="28dp">
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_background"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/belowFrame"
+                android:id="@+id/upperFrame"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="320dp">
 
-                android:paddingTop="28dp"
-                android:paddingBottom="50dp">
 
-                <TextView
-                    android:id="@+id/progress_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_heavy"
-                    android:text="Your Place"
-                    android:textColor="@color/txt_black"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="34dp"
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/circularProgressBar"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="28dp"
+                    app:cpb_background_progressbar_color="#16298f"
+                    app:cpb_background_progressbar_width="15dp"
+                    app:cpb_progress_direction="to_right"
+                    app:cpb_progressbar_color="#60cbf6"
+                    app:cpb_progressbar_width="15dp"
+                    app:cpb_round_border="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/airQualityCardView"
-                    android:layout_width="152dp"
-                    android:layout_height="190dp"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="5dp"
-                    app:cardMaxElevation="5dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="@+id/progress_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/progress_textView">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/airQualityFrame"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/progess_tree_imageView"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_wind"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textViewAirQuality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/avenir_book"
-                            android:text="Air Quality "
-                            android:textColor="@color/txt_black"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="@+id/airQualityData"
-                            app:layout_constraintTop_toBottomOf="@+id/airQualityData" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/airQualityData"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="30dp"
-                            android:text="0"
-                            android:textColor="#000000"
-                            android:textSize="50sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/divider3"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="16dp"
-                            android:background="?android:attr/listDivider"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewAirQuality" />
-
-                        <TextView
-                            android:id="@+id/textViewAverageAirQuality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/avenir_book"
-                            android:text="Avg. Quality "
-                            android:textColor="@color/subtxt_black"
-                            android:textSize="16sp"
-                            android:layout_marginTop="8dp"
-                            app:layout_constraintStart_toStartOf="@+id/textViewAirQuality"
-                            app:layout_constraintTop_toBottomOf="@+id/divider3" />
-
-                        <TextView
-                            android:id="@+id/AverageAirQualityData"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/avenir_heavy"
-                            android:text="200"
-                            android:textColor="@color/txt_hint"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="@+id/textViewAverageAirQuality"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewAverageAirQuality" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/forestDensityCardView"
-                    android:layout_width="152dp"
-                    android:layout_height="190dp"
-                    android:layout_marginRight="34dp"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="5dp"
-                    app:cardMaxElevation="5dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/airQualityCardView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/airQualityCardView">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/noOfTreesFrame"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/forest_density_imageView"
-                            android:layout_width="30dp"
-                            android:layout_height="35dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_forest"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textViewForestDensity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/avenir_book"
-                            android:text="Forest Density"
-                            android:textColor="@color/txt_black"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="@+id/forestDensityData"
-                            app:layout_constraintTop_toBottomOf="@+id/forestDensityData" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/forestDensityData"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="30dp"
-                            android:maxLength="4"
-                            android:text="0"
-                            android:textColor="#000000"
-                            android:textSize="50sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/divider4"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="16dp"
-                            android:background="?android:attr/listDivider"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewForestDensity" />
-
-                        <TextView
-                            android:id="@+id/textViewAverageForestDensity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="@font/avenir_book"
-                            android:text="Avg. Density"
-                            android:textColor="@color/subtxt_black"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="@+id/divider4"
-                            app:layout_constraintTop_toBottomOf="@+id/divider4" />
-
-                        <TextView
-                            android:id="@+id/AverageForestDensityData"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/avenir_heavy"
-                            android:text="175"
-                            android:textColor="@color/txt_hint"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="@+id/textViewAverageForestDensity"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewAverageForestDensity" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-                <TextView
-                    android:id="@+id/recommended_textview"
+                <com.daasuu.cat.CountAnimationTextView
+                    android:id="@+id/treePlantingData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
                     android:fontFamily="@font/avenir_heavy"
-                    android:text="Recommended"
-                    android:textColor="@color/txt_black"
-                    android:textSize="20dp"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintStart_toStartOf="@+id/progress_textView"
-                    app:layout_constraintTop_toBottomOf="@+id/airQualityCardView" />
+                    android:text="216"
+                    android:textColor="#FFFFFF"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+                    app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+                    app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/recommended_cardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="34dp"
-                    android:layout_marginEnd="34dp"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="5dp"
-                    app:cardMaxElevation="5dp"
-                    android:layout_marginTop="30dp"
+                <TextView
+                    android:id="@+id/textViewNoOfTreesToPlant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="110dp"
+                    android:text="Trees To Plant "
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+                    app:layout_constraintHorizontal_bias="0.506"
+                    app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+                    app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/ic_white_account_circle_24"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recommended_textview">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/home_rounded_button"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="6dp"
+                    app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+                    app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+                    app:layout_constraintTop_toBottomOf="@+id/circularProgressBar">
 
-                        <TextView
-                            android:id="@+id/target_textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="@font/avenir_heavy"
-                            android:text="Target Achieved"
-                            android:textColor="@color/subtxt_black"
-                            android:textSize="20dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.083"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_white_account_circle_24" />
 
-                        <TextView
-                            android:id="@+id/target_textView_subtext"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/avenir_medium"
-                            android:maxWidth="250dp"
-                            android:text="Learn more about everything that you have achieved below "
-                            android:textSize="13dp"
-                            app:layout_constraintStart_toStartOf="@+id/target_textView"
-                            app:layout_constraintTop_toBottomOf="@+id/target_textView" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/home_rounded_button"
+                        android:fontFamily="@font/avenir_medium"
+                        android:text="  Congratulation! You are good"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+                        app:layout_constraintTop_toBottomOf="@+id/circularProgressBar" />
 
-                        <ImageView
-                            android:id="@+id/target_black_imageView"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:layout_marginEnd="16dp"
-                            android:src="@drawable/rounded_button"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/achievement_trophy_imageView"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_motivationw"
-                            app:layout_constraintBottom_toBottomOf="@+id/target_black_imageView"
-                            app:layout_constraintEnd_toEndOf="@+id/target_black_imageView"
-                            app:layout_constraintStart_toStartOf="@+id/target_black_imageView"
-                            app:layout_constraintTop_toTopOf="@+id/target_black_imageView" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/airPollutantsCardView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:cardCornerRadius="20dp"
-                    tools:layout_editor_absoluteX="226dp"
-                    tools:layout_editor_absoluteY="222dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/pollutantFrame"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="40dp">
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="87dp"
-                            android:layout_height="29dp"
-                            android:layout_marginTop="24dp"
-                            android:text="Pollutants"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="PM10"
-                            android:textColor="#020202"
-                            android:textColorHighlight="#000000"
-                            android:textSize="24sp"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-                        <TextView
-                            android:id="@+id/textView13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="PM25"
-                            android:textColor="#000000"
-                            android:textSize="24sp"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView12"
-                            app:layout_constraintVertical_chainStyle="spread" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/pm10TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="0"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.51"
-                            app:layout_constraintStart_toEndOf="@+id/textView12"
-                            app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/pm25TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="0"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.505"
-                            app:layout_constraintStart_toEndOf="@+id/textView13"
-                            app:layout_constraintTop_toBottomOf="@+id/pm10TextView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/harmfulGasesCardView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:cardCornerRadius="20dp"
-                    tools:layout_editor_absoluteY="249dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            android:text="Harmful Gases"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.496"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="26dp"
-                            android:layout_marginTop="20dp"
-                            android:text="CO"
-                            android:textColor="#000000"
-                            android:textSize="24sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView8"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6"
-                            app:layout_constraintVertical_chainStyle="spread" />
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="26dp"
-                            android:layout_marginTop="16dp"
-                            android:text="SO2"
-                            android:textColor="#000000"
-                            android:textSize="24sp"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView7"
-                            app:layout_constraintVertical_chainStyle="spread" />
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="26dp"
-                            android:layout_marginTop="16dp"
-                            android:text="NO2"
-                            android:textColor="#000000"
-                            android:textSize="24sp"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView8"
-                            app:layout_constraintVertical_chainStyle="spread" />
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="35dp"
-                            android:layout_height="38dp"
-                            android:layout_marginStart="29dp"
-                            android:layout_marginTop="16dp"
-                            android:text="O3"
-                            android:textColor="#000000"
-                            android:textSize="24sp"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView9"
-                            app:layout_constraintVertical_chainStyle="spread" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/coTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="0"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.547"
-                            app:layout_constraintStart_toEndOf="@+id/textView7"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/so2TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="0"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textView8"
-                            app:layout_constraintTop_toBottomOf="@+id/coTextView" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/no2TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="0"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textView9"
-                            app:layout_constraintTop_toBottomOf="@+id/so2TextView" />
-
-                        <com.daasuu.cat.CountAnimationTextView
-                            android:id="@+id/o3TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="0"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.541"
-                            app:layout_constraintStart_toEndOf="@+id/textView10"
-                            app:layout_constraintTop_toBottomOf="@+id/no2TextView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-30dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    app:cardCornerRadius="28dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/belowFrame"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="28dp">
+
+                        <TextView
+                            android:id="@+id/progress_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="34dp"
+                            android:fontFamily="@font/avenir_heavy"
+                            android:text="Your Place"
+                            android:textColor="@color/txt_black"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/airQualityCardView"
+                            android:layout_width="152dp"
+                            android:layout_height="190dp"
+                            android:layout_marginTop="20dp"
+                            app:cardBackgroundColor="#fff"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="5dp"
+                            app:cardMaxElevation="5dp"
+                            app:layout_constraintStart_toStartOf="@+id/progress_textView"
+                            app:layout_constraintTop_toBottomOf="@+id/progress_textView">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/airQualityFrame"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/progess_tree_imageView"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:src="@drawable/ic_wind"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textViewAirQuality"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/avenir_book"
+                                    android:text="Air Quality "
+                                    android:textColor="@color/txt_black"
+                                    android:textSize="16sp"
+                                    app:layout_constraintStart_toStartOf="@+id/airQualityData"
+                                    app:layout_constraintTop_toBottomOf="@+id/airQualityData" />
+
+                                <com.daasuu.cat.CountAnimationTextView
+                                    android:id="@+id/airQualityData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="30dp"
+                                    android:text="0"
+                                    android:textColor="#000000"
+                                    android:textSize="50sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <View
+                                    android:id="@+id/divider3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:background="?android:attr/listDivider"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textViewAirQuality" />
+
+                                <TextView
+                                    android:id="@+id/textViewAverageAirQuality"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/avenir_book"
+                                    android:text="Avg. Quality "
+                                    android:textColor="@color/subtxt_black"
+                                    android:textSize="16sp"
+                                    app:layout_constraintStart_toStartOf="@+id/textViewAirQuality"
+                                    app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+                                <TextView
+                                    android:id="@+id/AverageAirQualityData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/avenir_heavy"
+                                    android:text="200"
+                                    android:textColor="@color/txt_hint"
+                                    android:textSize="20sp"
+                                    app:layout_constraintStart_toStartOf="@+id/textViewAverageAirQuality"
+                                    app:layout_constraintTop_toBottomOf="@+id/textViewAverageAirQuality" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/forestDensityCardView"
+                            android:layout_width="152dp"
+                            android:layout_height="190dp"
+                            android:layout_marginRight="34dp"
+                            app:cardBackgroundColor="#fff"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="5dp"
+                            app:cardMaxElevation="5dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/airQualityCardView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/airQualityCardView">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/noOfTreesFrame"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/forest_density_imageView"
+                                    android:layout_width="30dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:src="@drawable/ic_forest"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textViewForestDensity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/avenir_book"
+                                    android:text="Forest Density"
+                                    android:textColor="@color/txt_black"
+                                    android:textSize="16sp"
+                                    app:layout_constraintStart_toStartOf="@+id/forestDensityData"
+                                    app:layout_constraintTop_toBottomOf="@+id/forestDensityData" />
+
+                                <com.daasuu.cat.CountAnimationTextView
+                                    android:id="@+id/forestDensityData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_marginTop="30dp"
+                                    android:maxLength="4"
+                                    android:text="0"
+                                    android:textColor="#000000"
+                                    android:textSize="50sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <View
+                                    android:id="@+id/divider4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:background="?android:attr/listDivider"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textViewForestDensity" />
+
+                                <TextView
+                                    android:id="@+id/textViewAverageForestDensity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/avenir_book"
+                                    android:text="Avg. Density"
+                                    android:textColor="@color/subtxt_black"
+                                    android:textSize="16sp"
+                                    app:layout_constraintStart_toStartOf="@+id/divider4"
+                                    app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+                                <TextView
+                                    android:id="@+id/AverageForestDensityData"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/avenir_heavy"
+                                    android:text="175"
+                                    android:textColor="@color/txt_hint"
+                                    android:textSize="20sp"
+                                    app:layout_constraintStart_toStartOf="@+id/textViewAverageForestDensity"
+                                    app:layout_constraintTop_toBottomOf="@+id/textViewAverageForestDensity" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <TextView
+                            android:id="@+id/recommended_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/avenir_heavy"
+                            android:text="Recommended"
+                            android:textColor="@color/txt_black"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="@+id/progress_textView"
+                            app:layout_constraintTop_toBottomOf="@+id/airQualityCardView" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recommended_recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:nestedScrollingEnabled="true"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="@+id/belowFrame"
+                            app:layout_constraintEnd_toEndOf="@+id/forestDensityCardView"
+                            app:layout_constraintStart_toStartOf="@+id/airQualityCardView"
+                            app:layout_constraintTop_toBottomOf="@+id/recommended_textview" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </ScrollView>
 
