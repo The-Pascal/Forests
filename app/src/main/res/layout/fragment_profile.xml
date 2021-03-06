@@ -196,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_heavy"
-                android:text="254"
+                android:text="00"
                 android:textColor="@color/txt_black"
                 android:textSize="20dp"
                 android:layout_marginTop="2dp"

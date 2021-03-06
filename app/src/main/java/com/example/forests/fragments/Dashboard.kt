@@ -95,6 +95,7 @@ class Dashboard : Fragment() {
                 if(firstTime) {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
+
                  /*   v.findViewById<CountAnimationTextView>(R.id.coTextView)
                         .setAnimationDuration(1000).countAnimation(0, co)
                     v.findViewById<CountAnimationTextView>(R.id.so2TextView)
