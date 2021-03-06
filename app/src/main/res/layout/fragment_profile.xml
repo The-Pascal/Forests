@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/avenir_heavy"
-                android:text="Target Achieved"
+                android:text="Target Underway"
                 android:textColor="@color/subtxt_black"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -191,8 +191,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/number_trees_planted_textView8"
+            <com.daasuu.cat.CountAnimationTextView
+                android:id="@+id/number_trees_planted_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_heavy"
@@ -212,9 +212,9 @@
                 android:maxWidth="250dp"
                 android:text="Trees Planted"
                 android:textSize="13dp"
-                app:layout_constraintEnd_toEndOf="@+id/number_trees_planted_textView8"
-                app:layout_constraintStart_toStartOf="@+id/number_trees_planted_textView8"
-                app:layout_constraintTop_toBottomOf="@+id/number_trees_planted_textView8" />
+                app:layout_constraintEnd_toEndOf="@+id/number_trees_planted_textView"
+                app:layout_constraintStart_toStartOf="@+id/number_trees_planted_textView"
+                app:layout_constraintTop_toBottomOf="@+id/number_trees_planted_textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -245,7 +245,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.daasuu.cat.CountAnimationTextView
                 android:id="@+id/number_trees_referred_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

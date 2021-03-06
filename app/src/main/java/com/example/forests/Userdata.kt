@@ -15,7 +15,8 @@ data class Userdata(var completedaction:List<Int>,
                     var task1:Int,
                     var task2:Int,
                     var task3:Int,
-                    var task4:Int
+                    var task4:Int,
+                    var treesreferred:Int
 
 ){
     constructor(): this(
@@ -27,6 +28,7 @@ data class Userdata(var completedaction:List<Int>,
         0,
         0,
         "Rookie",
+        0,
         0,
         0,
         0,
