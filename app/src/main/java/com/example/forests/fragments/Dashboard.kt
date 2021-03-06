@@ -63,7 +63,7 @@ class Dashboard : Fragment() {
         Log.i("Lattitude", lattitude.toString())
         Log.i("Longitude", longitude.toString())
 
-       getFirebaseData("Bihar")
+//       getFirebaseData("Bihar")
 
 
     }
@@ -106,18 +106,18 @@ class Dashboard : Fragment() {
                 if(firstTime) {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
-                    v.findViewById<CountAnimationTextView>(R.id.coTextView)
-                        .setAnimationDuration(1000).countAnimation(0, co)
-                    v.findViewById<CountAnimationTextView>(R.id.so2TextView)
-                        .setAnimationDuration(1000).countAnimation(0, so2)
-                    v.findViewById<CountAnimationTextView>(R.id.no2TextView)
-                        .setAnimationDuration(1000).countAnimation(0, no2)
-                    v.findViewById<CountAnimationTextView>(R.id.o3TextView)
-                        .setAnimationDuration(1000).countAnimation(0, o3)
-                    v.findViewById<CountAnimationTextView>(R.id.pm10TextView)
-                        .setAnimationDuration(1000).countAnimation(0, pm10)
-                    v.findViewById<CountAnimationTextView>(R.id.pm25TextView)
-                        .setAnimationDuration(1000).countAnimation(0, pm25)
+//                    v.findViewById<CountAnimationTextView>(R.id.coTextView)
+//                        .setAnimationDuration(1000).countAnimation(0, co)
+//                    v.findViewById<CountAnimationTextView>(R.id.so2TextView)
+//                        .setAnimationDuration(1000).countAnimation(0, so2)
+//                    v.findViewById<CountAnimationTextView>(R.id.no2TextView)
+//                        .setAnimationDuration(1000).countAnimation(0, no2)
+//                    v.findViewById<CountAnimationTextView>(R.id.o3TextView)
+//                        .setAnimationDuration(1000).countAnimation(0, o3)
+//                    v.findViewById<CountAnimationTextView>(R.id.pm10TextView)
+//                        .setAnimationDuration(1000).countAnimation(0, pm10)
+//                    v.findViewById<CountAnimationTextView>(R.id.pm25TextView)
+//                        .setAnimationDuration(1000).countAnimation(0, pm25)
                 }
                 firstTime=false
 
@@ -269,7 +269,6 @@ class AddRecycleItemRecommended(): Item<ViewHolder>(){
     override fun bind(viewHolder: ViewHolder, position: Int) {
 
     }
-
 }
 
 
