@@ -176,6 +176,8 @@ class Location : AppCompatActivity(), LocationListener  {
         editor?.apply()
         intent.putExtra("lat", p0.latitude)
         intent.putExtra("lon", p0.longitude)
+        writeFirebaseData(lattitude,  longitude)
+
         startActivity(intent)
     }
     @SuppressLint("MissingPermission")
@@ -191,9 +193,9 @@ class Location : AppCompatActivity(), LocationListener  {
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
 
                         val intent = Intent(this@Location, Main::class.java)
-                        startActivity(intent)
-
-                    }
+                        writeFirebaseData(lattitude,  longitude)
+                            startActivity(intent)
+                        }
                 } else {
                     Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
                 }
@@ -201,7 +203,13 @@ class Location : AppCompatActivity(), LocationListener  {
             }
         }
     }
-
+    private fun writeFirebaseData(lattitude:String,  longitude:String){
+        val userdata = Userdata(listOf<Int>(0),lattitude, longitude,  0,listOf<Int>(0), 0,0, "Rookie",0,
+            0,0,0,0,0)
+        val uid = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+        ref.setValue(userdata)
+    }
 
 }
 
