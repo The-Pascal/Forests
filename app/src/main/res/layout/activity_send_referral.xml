@@ -62,4 +62,8 @@
         app:layout_constraintStart_toStartOf="@+id/send_referral_btn"
         app:srcCompat="@drawable/ic_plant_a_tree" />
 
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
