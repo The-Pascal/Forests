@@ -15,15 +15,14 @@
         <activity android:name=".actionsActivities.TenTreesPlant">
         </activity>
         <activity android:name=".actionsActivities.FiveTreesPlant" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Location" />
         <activity android:name=".registerLogin.RegistrationPage" />
         <activity android:name=".splashScreen.SplashScreen">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".onboarding.Onboarding" />
         <activity android:name=".registerLogin.loginpage" />

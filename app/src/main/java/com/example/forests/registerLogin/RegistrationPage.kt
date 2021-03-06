@@ -198,7 +198,8 @@ class RegistrationPage : AppCompatActivity() {
             profileImageUrl,
             status,
             active,
-            System.currentTimeMillis()
+            System.currentTimeMillis(),
+            0
         )
         ref.setValue(users)
             .addOnSuccessListener {
@@ -245,6 +246,8 @@ class RegistrationPage : AppCompatActivity() {
 
 
 @Parcelize
-class Users(val uid: String , val username: String , val email: String, val imageUrl : String, val status:String, val active: Boolean, val timestamp: Long): Parcelable{
-    constructor(): this("","","","","",true,-1)
+class Users(val uid: String , val username: String , val email: String,
+            val imageUrl : String, val status:String, val active: Boolean,
+            val timestamp: Long, val treesPlanted: Int): Parcelable{
+    constructor(): this("","","","","",true,-1, 0)
 }
