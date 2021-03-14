@@ -18,9 +18,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
 import com.daasuu.cat.CountAnimationTextView
 import com.example.forests.ForestData
+import com.example.forests.Main
 import com.example.forests.R
 import com.example.forests.Userdata
-import com.example.forests.actionsActivities.FiveTreesPlant
+
 import com.example.forests.actionsActivities.SendReferral
 import com.example.forests.data.airQualityDataService
 import com.example.forests.data.airQualityResponse.Data
@@ -31,6 +32,7 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -57,7 +59,6 @@ class Dashboard : Fragment() {
         super.onCreate(savedInstanceState)
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-
         lattitude = sharedPreferences.getString("lat", " ").toString()
         longitude = sharedPreferences.getString("lon", " ").toString()
         state = sharedPreferences.getString("state", " ").toString()
@@ -264,7 +265,7 @@ class Dashboard : Fragment() {
         }
         adapter.setOnItemClickListener{item, view ->
             val userItem = item as AddRecycleItemRecommended
-            val intent= Intent(view.context , FiveTreesPlant::class.java)
+            val intent= Intent(view.context , Main::class.java)
             startActivity(intent)
         }
 
