@@ -25,7 +25,6 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_five_trees_plant.*
 import kotlinx.android.synthetic.main.activity_trees_planted.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.single_tree.view.*
