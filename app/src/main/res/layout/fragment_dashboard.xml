@@ -156,25 +156,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <androidx.cardview.widget.CardView
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/airQualityCardView"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
-                            android:elevation="0dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginEnd="16dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="10dp"
-                            app:cardMaxElevation="0dp"
+                            android:background="@drawable/cardsbg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/progress_textView">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:background="#8542DC"/>
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/airQualityFrame"
                                 android:layout_width="match_parent"
@@ -447,10 +440,10 @@
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        </androidx.cardview.widget.CardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                        <androidx.cardview.widget.CardView
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/ForestIndexCardView"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
@@ -458,17 +451,12 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginEnd="16dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="10dp"
-                            app:cardMaxElevation="0dp"
+                            android:background="@drawable/cardsbg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/airQualityCardView">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:background="#8542DC"/>
+
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/airQualityFrame"
                                 android:layout_width="match_parent"
@@ -728,7 +716,7 @@
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        </androidx.cardview.widget.CardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
                             android:id="@+id/recommended_textview"
