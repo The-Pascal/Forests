@@ -16,11 +16,11 @@
             android:id="@+id/username_black_imageView"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:layout_marginStart="36dp"
             android:src="@drawable/rounded_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -295,17 +295,6 @@
         app:layout_constraintEnd_toEndOf="@+id/progress_cardView_2"
         app:layout_constraintStart_toStartOf="@+id/progress_cardView_1"
         app:layout_constraintTop_toBottomOf="@+id/achievement_textView" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
