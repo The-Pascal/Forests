@@ -103,7 +103,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/target_textView"
+                android:id="@+id/action_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -117,18 +117,18 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/target_textView_subtext"
+                android:id="@+id/action_textView_subtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"
                 android:maxWidth="210dp"
                 android:text="Learn more about everything that you have achieved below "
                 android:textSize="13dp"
-                app:layout_constraintStart_toStartOf="@+id/target_textView"
-                app:layout_constraintTop_toBottomOf="@+id/target_textView" />
+                app:layout_constraintStart_toStartOf="@+id/action_textView"
+                app:layout_constraintTop_toBottomOf="@+id/action_textView" />
 
             <ImageView
-                android:id="@+id/target_black_imageView"
+                android:id="@+id/action_imageView"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="16dp"
@@ -142,10 +142,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_motivationw"
-                app:layout_constraintBottom_toBottomOf="@+id/target_black_imageView"
-                app:layout_constraintEnd_toEndOf="@+id/target_black_imageView"
-                app:layout_constraintStart_toStartOf="@+id/target_black_imageView"
-                app:layout_constraintTop_toTopOf="@+id/target_black_imageView" />
+                app:layout_constraintBottom_toBottomOf="@+id/action_imageView"
+                app:layout_constraintEnd_toEndOf="@+id/action_imageView"
+                app:layout_constraintStart_toStartOf="@+id/action_imageView"
+                app:layout_constraintTop_toTopOf="@+id/action_imageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

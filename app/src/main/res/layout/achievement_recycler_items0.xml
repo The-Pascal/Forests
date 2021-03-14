@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/target_black_imageView"
+        android:id="@+id/action_imageView"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -23,10 +23,10 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_timew"
-        app:layout_constraintBottom_toBottomOf="@+id/target_black_imageView"
-        app:layout_constraintEnd_toEndOf="@+id/target_black_imageView"
-        app:layout_constraintStart_toStartOf="@+id/target_black_imageView"
-        app:layout_constraintTop_toTopOf="@+id/target_black_imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/action_imageView"
+        app:layout_constraintEnd_toEndOf="@+id/action_imageView"
+        app:layout_constraintStart_toStartOf="@+id/action_imageView"
+        app:layout_constraintTop_toTopOf="@+id/action_imageView" />
 
     <TextView
         android:id="@+id/achievement_name_textView"
@@ -38,9 +38,9 @@
         android:textColor="@color/txt_black"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/target_black_imageView"
-        app:layout_constraintStart_toEndOf="@+id/target_black_imageView"
-        app:layout_constraintTop_toTopOf="@+id/target_black_imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/action_imageView"
+        app:layout_constraintStart_toEndOf="@+id/action_imageView"
+        app:layout_constraintTop_toTopOf="@+id/action_imageView" />
 
     <ImageView
         android:id="@+id/achievement_arrow_imageview"

@@ -16,11 +16,11 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
+import com.airbnb.lottie.L
 import com.daasuu.cat.CountAnimationTextView
-import com.example.forests.ForestData
-import com.example.forests.Main
+import com.example.forests.*
 import com.example.forests.R
-import com.example.forests.Userdata
+import com.example.forests.actionsActivities.FiveTreesPlant
 
 import com.example.forests.actionsActivities.SendReferral
 import com.example.forests.data.airQualityDataService
@@ -34,9 +34,12 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import kotlinx.android.synthetic.main.recommended_cards1.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.Copy
+import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 
@@ -63,9 +66,6 @@ class Dashboard : Fragment() {
         longitude = sharedPreferences.getString("lon", " ").toString()
         state = sharedPreferences.getString("state", " ").toString()
 
-        Log.i("Lattitude", lattitude.toString())
-        Log.i("Longitude", longitude.toString())
-
         getForestData(state)
 
     }
@@ -76,27 +76,22 @@ class Dashboard : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
 
         getForestData(state)
 
         val apiService = airQualityDataService()
-        Log.d("LatestMessages","Current User ${state}")
-
         GlobalScope.launch(Dispatchers.Main) {
             val response = apiService?.getTreesByCoordinates(lattitude, longitude)?.await()
             if (response != null && firstTime) {
                 airQualityData = response.data
                 val aqi= airQualityData[0].aqi.toInt()
-
                 Log.i("AirQualityAPIresponse", response.data.toString())
                 if(firstTime) {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
                 }
                 firstTime=false
-
                 getForestData(state)
 
             }
@@ -146,13 +141,9 @@ class Dashboard : Fragment() {
         val totalforestcover =(forestData.actualforestcover.toInt() + forestData.openforest.toInt())*10
         val totalArea = forestData.geoarea.toInt()
         val rating = "Rookie"
-        Log.d("LatestMessages","totalforestcover $totalforestcover")
-        Log.d("LatestMessages","forestData ${forestData.geoarea.toInt()}")
-
         var normalizedscore = 1000- aqi.div(Math.max(1,totalforestcover.div(Math.max(1,totalArea))))
         normal = normalizedscore
-        Log.d("LatestMessages","normalizedscore ${normalizedscore}")
-
+        Log.d("LatestMessages","normalizedscore $normalizedscore")
         var plantedtrees =0;
 
         if(normalizedscore >500){
@@ -166,6 +157,48 @@ class Dashboard : Fragment() {
         writeFirebaseData(lattitude,longitude,targertrees,normalizedscore,plantedtrees,rating)
     }
 
+    private fun writeFirebaseData(lattitude:String,  longitude:String,  targertrees:Int,  normalizedscore:Int,  plantedtrees:Int,  rating:String){
+
+        val remainingaction = listOf<Int>(1, 2, 3, 4)
+
+        val userdata = Userdata(
+            normalizedscore,
+            lattitude,
+            longitude,
+            plantedtrees,
+            0,
+            listOf<Int>(0),
+            listOf<Int>(0),
+            remainingaction,
+            0,
+            rating,
+            targertrees,
+            0,
+            0,
+            0,
+            0
+        )
+
+        val uid = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+        ref.setValue(userdata)
+
+    }
+
+    @UiThread
+    suspend fun makeNetworkRequest() {
+        val geoCodingService = revGeoCodingService()
+
+        val response1 = geoCodingService?.getAddress(lattitude, longitude)
+
+        if (response1 != null) {
+
+            Log.i("RevGeoCodingAPIresponse", response1.children.toString())
+
+        }
+    }
+
+
     private fun getUserData(){
         val uid = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
@@ -175,21 +208,32 @@ class Dashboard : Fragment() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 userdata = p0.getValue(Userdata::class.java)!!
-                Log.d("LatestMessages","Current User ${userdata}")
-                var layoutId = when(userdata.presentaction){
-                    1 -> R.layout.ongoing_cards1
-                    2 -> R.layout.ongoing_cards2
-                    3-> R.layout.ongoing_cards3
-                    4-> R.layout.ongoing_cards4
-                    else -> R.layout.recommended_cards
-                }
-                var cardLayout = layoutInflater.inflate(layoutId,null)
-                v.findViewById<FrameLayout>(R.id.currentActionFrameLayout).addView(cardLayout)
-
-                addItemsRecyclerView(v, userdata.presentaction,userdata.ongoingaction)
+                addItemsRecyclerView(v, userdata)
             }
         })
+    }
 
+    private fun addItemsRecyclerView(view: View, userdata: Userdata){
+
+        val adapter = GroupAdapter<ViewHolder>()
+        view.recommended_recyclerView.adapter = adapter
+
+        userdata.remainingaction.forEach {
+            adapter.add(AddRecycleItemRecommended(it))
+        }
+
+        adapter.setOnItemClickListener{item, view ->
+            val userItem = item as AddRecycleItemRecommended
+            if(userItem.a == 4){
+                val intent= Intent(view.context , SendReferral::class.java)
+                startActivity(intent)
+            }
+            else
+            {
+                val intent= Intent(view.context , FiveTreesPlant::class.java)
+                startActivity(intent)
+            }
+        }
 
     }
 
@@ -229,72 +273,34 @@ class Dashboard : Fragment() {
         })
     }
 
-
-    private fun writeFirebaseData(lattitude:String,  longitude:String,  targertrees:Int,  normalizedscore:Int,  plantedtrees:Int,  rating:String){
-        val userdata = Userdata(listOf<Int>(0),lattitude, longitude,  normalizedscore,listOf<Int>(0), plantedtrees,0, rating,targertrees,
-            0,0,0,0,0)
-        val uid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
-        ref.setValue(userdata)
-    }
-
-    @UiThread
-    suspend fun makeNetworkRequest() {
-        val geoCodingService = revGeoCodingService()
-
-        val response1 = geoCodingService?.getAddress(lattitude, longitude)
-
-        if (response1 != null) {
-
-            Log.i("RevGeoCodingAPIresponse", response1.children.toString())
-
-        }
-    }
-
-    private fun addItemsRecyclerView(view: View, presentaction:Int, ongoingaction:List<Int>){
-
-
-        val adapter = GroupAdapter<ViewHolder>()
-        view.recommended_recyclerView.adapter = adapter
-
-        val i:Int=1
-        for(i in 1..4){
-            if (i!=userdata.presentaction){
-                adapter.add(AddRecycleItemRecommended(i))
-            }
-        }
-        adapter.setOnItemClickListener{item, view ->
-            val userItem = item as AddRecycleItemRecommended
-            val intent= Intent(view.context , Main::class.java)
-            startActivity(intent)
-        }
-
-
-    }
-
 }
 
 
 
 class AddRecycleItemRecommended(val a: Int): Item<ViewHolder>(){
 
+    //Create instances of all actions
+    private val action1 = AllTasks(1, "Plant five Trees", "Let's begin a new journey!", 5)
+    private val action2 = AllTasks(2, "Plant ten Trees", "Let's begin a new journey!", 10)
+    private val action3 = AllTasks(3, "Use Public Transport", "Let's begin a new journey!", 15)
+    private val action4 = AllTasks(4, "Refer a friend", "Let's begin a new journey!", 5)
+
     override fun getLayout(): Int {
-        return when(a){
-            1 -> R.layout.recommended_cards1
-            2 -> R.layout.recommended_cards2
-            3-> R.layout.recommended_cards3
-            4-> R.layout.recommended_cards4
-            else -> R.layout.recommended_cards
-        }
-
-    }
-
-    override fun getItem(position: Int): Item<*> {
-        return super.getItem(position)
+        return R.layout.recommended_cards1
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-
+        var action = AllTasks()
+        action = when(a)
+        {
+            1->action1
+            2->action2
+            3->action3
+            4->action4
+            else->action1
+        }
+        viewHolder.itemView.action_textView.text = action.topic
+        viewHolder.itemView.action_textView_subtext.text = action.subtopic
     }
 
 }

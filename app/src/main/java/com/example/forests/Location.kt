@@ -204,8 +204,24 @@ class Location : AppCompatActivity(), LocationListener  {
         }
     }
     private fun writeFirebaseData(lattitude:String,  longitude:String){
-        val userdata = Userdata(listOf<Int>(0),lattitude, longitude,  0,listOf<Int>(0), 0,0, "Rookie",0,
-            0,0,0,0,0)
+        val remainingaction = listOf<Int>(1, 2, 3, 4)
+        val userdata = Userdata(
+            0,
+            lattitude,
+            longitude,
+            0,
+            0,
+            listOf<Int>(0),
+            listOf<Int>(0),
+            remainingaction,
+            0,
+            "Rookie",
+            0,
+            0,
+            0,
+            0,
+            0
+        )
         val uid = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
         ref.setValue(userdata)

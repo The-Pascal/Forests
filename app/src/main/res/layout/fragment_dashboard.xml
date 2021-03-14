@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#203cc3"
     tools:context=".fragments.Dashboard">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,8 +117,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-30dp"
-                >
+                android:layout_marginBottom="-30dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -142,7 +133,7 @@
                         android:id="@+id/belowFrame"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="28dp">
+                        android:layout_marginBottom="28dp">
 
                         <TextView
                             android:id="@+id/progress_textView"
@@ -277,12 +268,12 @@
                                                         app:layout_constraintStart_toStartOf="@+id/circularProgressBar2"
                                                         app:layout_constraintTop_toTopOf="@+id/circularProgressBar2">
 
-                                                        <TextView
+                                                        <com.daasuu.cat.CountAnimationTextView
                                                             android:id="@+id/airQualityData"
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
                                                             android:layout_gravity="center_horizontal"
-                                                            android:text="85%" />
+                                                            android:text="00" />
 
                                                         <TextView
                                                             android:layout_width="wrap_content"
@@ -692,12 +683,12 @@
                                                         app:layout_constraintStart_toStartOf="@+id/circularProgressBar3"
                                                         app:layout_constraintTop_toTopOf="@+id/circularProgressBar3">
 
-                                                        <TextView
+                                                        <com.daasuu.cat.CountAnimationTextView
                                                             android:id="@+id/forestDensityData"
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
                                                             android:layout_gravity="center_horizontal"
-                                                            android:text="85%" />
+                                                            android:text="00" />
 
                                                         <TextView
                                                             android:layout_width="wrap_content"
@@ -726,36 +717,31 @@
                             android:text="Recommended"
                             android:textColor="@color/txt_black"
                             android:textSize="20dp"
-                            app:layout_constraintBottom_toTopOf="@+id/recommended_recyclerView"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.125"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ForestIndexCardView"
-                            app:layout_constraintVertical_bias="1.0" />
+                            app:layout_constraintTop_toBottomOf="@+id/ForestIndexCardView" />
 
-                        <FrameLayout
-                            android:id="@+id/currentActionFrameLayout"
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            app:layout_constraintBottom_toTopOf="@+id/recommended_recyclerView"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/recommended_textview">
 
-                        </FrameLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recommended_recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="parent" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recommended_recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:nestedScrollingEnabled="true"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_constraintBottom_toBottomOf="@+id/belowFrame"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-
+                        </RelativeLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -763,7 +749,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-    </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

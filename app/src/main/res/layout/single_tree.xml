@@ -29,7 +29,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/target_textView"
+                android:id="@+id/action_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -43,15 +43,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/target_textView_subtext"
+                android:id="@+id/action_textView_subtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/avenir_medium"
                 android:maxWidth="210dp"
                 android:text="Planted on : "
                 android:textSize="13dp"
-                app:layout_constraintStart_toStartOf="@+id/target_textView"
-                app:layout_constraintTop_toBottomOf="@+id/target_textView" />
+                app:layout_constraintStart_toStartOf="@+id/action_textView"
+                app:layout_constraintTop_toBottomOf="@+id/action_textView" />
 
             <TextView
                 android:id="@+id/plant_date"
@@ -61,9 +61,9 @@
                 android:maxWidth="210dp"
                 android:text="4-March"
                 android:textSize="13dp"
-                app:layout_constraintBottom_toBottomOf="@+id/target_textView_subtext"
-                app:layout_constraintStart_toEndOf="@+id/target_textView_subtext"
-                app:layout_constraintTop_toTopOf="@+id/target_textView_subtext" />
+                app:layout_constraintBottom_toBottomOf="@+id/action_textView_subtext"
+                app:layout_constraintStart_toEndOf="@+id/action_textView_subtext"
+                app:layout_constraintTop_toTopOf="@+id/action_textView_subtext" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/single_tree_image"
