@@ -11,9 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.annotation.UiThread
+import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -31,19 +31,14 @@ import com.example.forests.data.revGeoCodingService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import com.skydoves.progressview.ProgressView
-import com.skydoves.progressview.progressView
+//import com.skydoves.progressview.ProgressView
+//import com.skydoves.progressview.progressView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.circularProgressBar
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.recommended_cards1.view.*
-import kotlinx.android.synthetic.main.recommended_cards1.view.action_textView
-import kotlinx.android.synthetic.main.recommended_cards1.view.action_textView_subtext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -56,26 +51,15 @@ class Dashboard : Fragment() {
     private lateinit var v : View
     private lateinit var lattitude:String
     private lateinit var longitude:String
-    private var targertrees = 0
     var normal: Int = 0
-    private var plantedtrees=0
     private  var rating:String = "Rookie"
     private  lateinit var state:String
     private lateinit var userdata: Userdata
-    private lateinit var forestData: ForestData
-    private  lateinit var airQualityData: List<Data>
-    private  lateinit var addressLocationData: List<Data>
-    var firstTime = true;
+    private var dashboardData = DashboardData()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        lattitude = sharedPreferences.getString("lat", " ").toString()
-        longitude = sharedPreferences.getString("lon", " ").toString()
-        state = sharedPreferences.getString("state", " ").toString()
-        getForestData(state)
-
     }
 
 
@@ -83,9 +67,7 @@ class Dashboard : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
-
         v.airmore?.setOnClickListener {
             context?.let {
                 val popupMenu = PopupMenu(it, airmore)
@@ -120,74 +102,86 @@ class Dashboard : Fragment() {
             }
 
         }
-        getForestData(state)
-
-        val apiService = airQualityDataService()
-        GlobalScope.launch(Dispatchers.Main) {
-            val response = apiService?.getTreesByCoordinates(lattitude, longitude)?.await()
-            if (response != null && firstTime) {
-                airQualityData = response.data
-                val aqi= airQualityData[0].aqi.toInt()
-                Log.i("AirQualityAPIresponse", response.data.toString())
-                if(firstTime) {
-                    v.findViewById<CountAnimationTextView>(R.id.airQualityData)
-                        .setAnimationDuration(1000).countAnimation(0, aqi)
-                    circularloader(500 - aqi.toFloat(), 500f, circularProgressBar_airQuality)
-                    Log.d("airQuality", "${airQualityData[0].co.toFloat()}")
-                    co_airQuality_progressView.progress = airQualityData[0].co.toFloat()
-
-                }
-                firstTime=false
-                getForestData(state)
-
-            }
-        }
-
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        if(sharedPreferences.contains("firstTimeUserData")){
-            val uid = FirebaseAuth.getInstance().uid
-            val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+        lattitude = sharedPreferences.getString("lat", " ").toString()
+        longitude = sharedPreferences.getString("lon", " ").toString()
+        state = sharedPreferences.getString("state", " ").toString()
 
-            ref.get().addOnSuccessListener {
-                getUserData()
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
+        FetchAPI(lattitude,longitude,state).initializeDashboardData {
+            dashboardData = it
+            Log.i("Dashboard", "Dashboard data ${it}")
+            addDataToView(dashboardData)
+            getUserData()
+            if(!sharedPreferences.contains("firstTimeUserData")) {
+                initializeUserData(dashboardData, lattitude, longitude)
             }
-
-        }else{
-            getForestData(state)
-            var editor: SharedPreferences.Editor? = sharedPreferences.edit()
-            editor?.putString("firstTimeUserData", true.toString())
-            editor?.apply()
+            else
+            {
+                var editor: SharedPreferences.Editor? = sharedPreferences.edit()
+                editor?.putString("firstTimeUserData", true.toString())
+                editor?.apply()
+            }
         }
-
         return v;
     }
 
+    private fun addDataToView(dashboardData: DashboardData)
+    {
+        val normalizedscore = dashboardData.normalizedscore
+        val airQuality = dashboardData.aqi
+        val forestDensity = dashboardData.forestDensity
+        var so2:Int = dashboardData.so2
+        var co:Int = dashboardData.co
+        var no2:Int = dashboardData.no2
+        var o3: Int = dashboardData.o3
+        var totalArea: Int = dashboardData.totalArea
+        var actualForest:Int = dashboardData.actualForest
+        var openForest:Int = dashboardData.openForest
+        var noForest:Int = dashboardData.noForest
+        var recommendedTarget:Int = dashboardData.recommendedTarget
 
-    private fun initializeUserData(forestData:ForestData){
+        normalizedScoreData.setAnimationDuration(3000).countAnimation(0, dashboardData.normalizedscore)
+        circularloader(normalizedscore.toFloat(), 1000f, circularProgressBar)
 
-        val aqi = airQualityData[0].aqi.toInt()
-        val totalforestcover =(forestData.actualforestcover.toInt() + forestData.openforest.toInt())*10
-        val totalArea = forestData.geoarea.toInt()
-        val rating = "Rookie"
-        var normalizedscore = 1000- aqi.div(Math.max(1,totalforestcover.div(Math.max(1,totalArea))))
-        normal = normalizedscore
-        circularloader(normal.toFloat(), 1000f, circularProgressBar)
-        normalizedScoreData.text = normal.toString()
-        Log.d("LatestMessages","normalizedscore $normalizedscore")
-        var plantedtrees =0;
+        airQualityData.setAnimationDuration(3000).countAnimation(0, airQuality)
+        circularloader(airQuality.toFloat(), 500f, circularProgressBar_airQuality)
 
-        if(normalizedscore >500){
-            targertrees = 4
-            v.findViewById<CountAnimationTextView>(R.id.normalizedScoreData).setAnimationDuration(3000).countAnimation(0,targertrees)
-        }else{
-            targertrees = Math.ceil((((1000-normalizedscore)/100).toDouble())).roundToInt()
-            v.findViewById<CountAnimationTextView>(R.id.normalizedScoreData).setAnimationDuration(3000).countAnimation(0,targertrees)
-            v.findViewById<TextView>(R.id.statusText).statusText.text = "Critical! environment"
-        }
-        writeFirebaseData(lattitude,longitude,targertrees,normalizedscore,plantedtrees,rating)
+        forestDensityData.setAnimationDuration(3000).countAnimation(0, forestDensity)
+        circularloader(forestDensity.toFloat(), 100f, circularProgressBar_forestDensity)
+
+        val totalSum = actualForest + openForest + noForest
+        Log.i("Dashboard", "Total Sum ${totalSum.toFloat()}")
+        val actualForestPercentage = ( actualForest.toFloat() /totalSum.toFloat() ) * 100
+        val openForestPercentage = ( openForest.toFloat() /totalSum.toFloat() ) * 100
+        val noForestPercentage = ( noForest.toFloat() /totalSum.toFloat() ) * 100
+
+        actualForestCover_progressView.progress = actualForestPercentage
+        openForest_progessView.progress = openForestPercentage
+        noForest_progressView.progress = noForestPercentage
+
+        co_airQuality_progressView.progress = 52f
+        so2_airQuality_progressbar.progress = 34f
+        o3_airQuality_progressView.progress = 48f
+        no2_airQuality_progressView.progress = 72f
+
+
+
+
     }
+
+
+    private fun initializeUserData(dashboard: DashboardData, lattitude: String, longitude: String){
+
+        val aqi = dashboard.aqi
+        val totalforestcover = dashboard.actualForest
+        val rating = "Rookie"
+        var normalizedscore = dashboard.normalizedscore
+        var plantedtrees =0;
+        var targettrees = dashboard.recommendedTarget
+        writeFirebaseData(lattitude,longitude,targettrees,normalizedscore,plantedtrees,rating)
+
+    }
+
 
     private fun writeFirebaseData(lattitude:String,  longitude:String,  targertrees:Int,  normalizedscore:Int,  plantedtrees:Int,  rating:String){
 
@@ -215,19 +209,6 @@ class Dashboard : Fragment() {
         val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
         ref.setValue(userdata)
 
-    }
-
-    @UiThread
-    suspend fun makeNetworkRequest() {
-        val geoCodingService = revGeoCodingService()
-
-        val response1 = geoCodingService?.getAddress(lattitude, longitude)
-
-        if (response1 != null) {
-
-            Log.i("RevGeoCodingAPIresponse", response1.children.toString())
-
-        }
     }
 
 
@@ -269,51 +250,6 @@ class Dashboard : Fragment() {
 
     }
 
-    private fun getForestData(state: String){
-        Log.d("LatestMessages","Current User ${state}")
-
-        val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
-
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                forestData = p0.getValue(ForestData::class.java)!!
-
-                Log.d("LatestMessages","Current User ${forestData}")
-
-                val totalforestcover = (forestData?.actualforestcover?.toInt()?.plus(forestData.openforest?.toInt()))?.times(100)?.toDouble()
-                val totalArea = forestData?.geoarea?.toInt()
-                var forestDensity = totalArea?.let { Math.max(1, it) }?.let { totalforestcover?.div(it) }!!
-                val roundedForestDensity:Double = String.format("%.2f", forestDensity).toDouble()
-
-                Log.d("LatestMessages","Current User ${roundedForestDensity}")
-
-                v.findViewById<CountAnimationTextView>(R.id.forestDensityData).text = roundedForestDensity.toString()
-                circularloader(roundedForestDensity.toFloat(),100f, circularProgressBar_forestDensity)
-
-                val totalcover : Double = (forestData.actualforestcover.toLong() + forestData.openforest.toLong() + forestData.noforest.toLong()).toDouble()
-                actualForestCover_progressView.progress = (( forestData?.actualforestcover.toFloat() / totalcover.toFloat() ) * 100)
-                openForest_progessView.progress = (( forestData?.openforest.toFloat() / totalcover.toFloat() ) * 100)
-                noForest_progressView.progress = (( forestData?.noforest.toFloat() / totalcover.toFloat() ) * 100)
-
-                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-                if(!sharedPreferences.contains("firstTimeUserData")){
-                    initializeUserData(forestData)
-                    var editor: SharedPreferences.Editor? = sharedPreferences.edit()
-                    editor?.putString("firstTimeUserData", true.toString())
-                    editor?.apply()
-                }
-            }
-
-        })
-    }
-
-    private fun makeProgressView(){
-    }
-
-
     private fun circularloader(data: Float, max:Float, circularProgressBar : CircularProgressBar){
         circularProgressBar.apply {
             Log.e("normal", normal.toString())
@@ -321,7 +257,6 @@ class Dashboard : Fragment() {
             progressMax = max
             roundBorder = true
             startAngle = 180f
-//            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
         }
     }
 
