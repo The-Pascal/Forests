@@ -289,7 +289,6 @@ class Dashboard : Fragment() {
 }
 
 
-
 class AddRecycleItemRecommended(val a: Int): Item<ViewHolder>(){
 
     //Create instances of all actions
