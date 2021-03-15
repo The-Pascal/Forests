@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:fontFamily="@font/avenir_heavy"
-                    android:text="216"
+                    android:text="00"
                     android:textColor="#FFFFFF"
                     android:textSize="40sp"
                     android:textStyle="bold"
@@ -68,8 +68,8 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="24dp"
                     android:src="@drawable/ic_white_account_circle_24"
@@ -527,6 +527,7 @@
                                                     <com.skydoves.progressview.ProgressView
                                                         android:id="@+id/actualForestCover_progressView"
                                                         app:progressView_orientation="vertical"
+                                                        app:progressView_max="100"
                                                         app:progressView_colorProgress="#8542DC"
                                                         style="@style/progressBarStyle" />
 
@@ -552,7 +553,6 @@
                                                         android:layout_height="100dp"
                                                         android:layout_margin="10dp"
                                                         app:progressView_max="100"
-                                                        app:progressView_progress="100"
                                                         app:progressView_orientation="vertical"
                                                         android:layout_marginStart="5dp"
                                                         app:progressView_colorProgress="#8542DC" />
@@ -580,7 +580,6 @@
                                                         android:layout_height="100dp"
                                                         android:layout_margin="10dp"
                                                         app:progressView_max="100"
-                                                        app:progressView_progress="100"
                                                         app:progressView_orientation="vertical"
                                                         android:layout_marginStart="5dp"
                                                         app:progressView_colorProgress="#8542DC"/>

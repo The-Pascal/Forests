@@ -50,21 +50,24 @@ class Dashboard : Fragment() {
     private lateinit var v : View
     private lateinit var lattitude:String
     private lateinit var longitude:String
-    private var targertrees = 0
     var normal: Int = 0
-    private var plantedtrees=0
     private  var rating:String = "Rookie"
     private  lateinit var state:String
     private lateinit var userdata: Userdata
-    private lateinit var forestData: ForestData
-    private  lateinit var airQualityData: List<Data>
-    private  lateinit var addressLocationData: List<Data>
     private var dashboardData = DashboardData()
-    var firstTime = true;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        v= inflater.inflate(R.layout.fragment_dashboard, container, false)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
         lattitude = sharedPreferences.getString("lat", " ").toString()
         longitude = sharedPreferences.getString("lon", " ").toString()
@@ -73,7 +76,7 @@ class Dashboard : Fragment() {
         FetchAPI(lattitude,longitude,state).initializeDashboardData {
             dashboardData = it
             Log.i("Dashboard", "Dashboard data ${it}")
-
+            addDataToView(dashboardData)
             getUserData()
             if(!sharedPreferences.contains("firstTimeUserData")) {
                 initializeUserData(dashboardData, lattitude, longitude)
@@ -85,16 +88,51 @@ class Dashboard : Fragment() {
                 editor?.apply()
             }
         }
-
+        return v;
     }
 
+    private fun addDataToView(dashboardData: DashboardData)
+    {
+        val normalizedscore = dashboardData.normalizedscore
+        val airQuality = dashboardData.aqi
+        val forestDensity = dashboardData.forestDensity
+        var so2:Int = dashboardData.so2
+        var co:Int = dashboardData.co
+        var no2:Int = dashboardData.no2
+        var o3: Int = dashboardData.o3
+        var totalArea: Int = dashboardData.totalArea
+        var actualForest:Int = dashboardData.actualForest
+        var openForest:Int = dashboardData.openForest
+        var noForest:Int = dashboardData.noForest
+        var recommendedTarget:Int = dashboardData.recommendedTarget
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        v= inflater.inflate(R.layout.fragment_dashboard, container, false)
-        return v;
+        normalizedScoreData.setAnimationDuration(3000).countAnimation(0, dashboardData.normalizedscore)
+        circularloader(normalizedscore.toFloat(), 1000f, circularProgressBar)
+
+        airQualityData.setAnimationDuration(3000).countAnimation(0, airQuality)
+        circularloader(airQuality.toFloat(), 500f, circularProgressBar_airQuality)
+
+        forestDensityData.setAnimationDuration(3000).countAnimation(0, forestDensity)
+        circularloader(forestDensity.toFloat(), 100f, circularProgressBar_forestDensity)
+
+        val totalSum = actualForest + openForest + noForest
+        Log.i("Dashboard", "Total Sum ${totalSum.toFloat()}")
+        val actualForestPercentage = ( actualForest.toFloat() /totalSum.toFloat() ) * 100
+        val openForestPercentage = ( openForest.toFloat() /totalSum.toFloat() ) * 100
+        val noForestPercentage = ( noForest.toFloat() /totalSum.toFloat() ) * 100
+
+        actualForestCover_progressView.progress = actualForestPercentage
+        openForest_progessView.progress = openForestPercentage
+        noForest_progressView.progress = noForestPercentage
+
+        co_airQuality_progressView.progress = 52f
+        so2_airQuality_progressbar.progress = 34f
+        o3_airQuality_progressView.progress = 48f
+        no2_airQuality_progressView.progress = 72f
+
+
+
+
     }
 
 
@@ -104,7 +142,6 @@ class Dashboard : Fragment() {
         val totalforestcover = dashboard.actualForest
         val rating = "Rookie"
         var normalizedscore = dashboard.normalizedscore
-        circularloader(normalizedscore.toFloat(), 1000f, circularProgressBar)
         var plantedtrees =0;
         var targettrees = dashboard.recommendedTarget
         writeFirebaseData(lattitude,longitude,targettrees,normalizedscore,plantedtrees,rating)

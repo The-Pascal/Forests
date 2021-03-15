@@ -57,12 +57,13 @@ class FetchAPI( val lattitude:String, val longitude:String, val state: String) {
 
                 getForestData(){
                     result ->
-                    dashboardData.normalizedscore = 1000- dashboardData.aqi.div(Math.max(1,(result.getValue("actualForest")+result.getValue("openForest")).div(Math.max(1,result.getValue("totalArea")))))
-
                     dashboardData.forestDensity = result.getValue("forestDensity")
                     dashboardData.actualForest = result.getValue("actualForest")
                     dashboardData.openForest = result.getValue("openForest")
                     dashboardData.noForest = result.getValue("noForest")
+                    dashboardData.totalArea = result.getValue("totalArea")
+                    dashboardData.normalizedscore = 1000- dashboardData.aqi.div(Math.max(1,(result.getValue("actualForest")+result.getValue("openForest")).div(Math.max(1,result.getValue("totalArea")))))
+
                     myCallback.invoke(dashboardData)
                 }
 
@@ -108,7 +109,8 @@ class FetchAPI( val lattitude:String, val longitude:String, val state: String) {
             myCallback.invoke(mapOf("forestDensity" to 0,
                 "actualForest" to 0,
                 "openForest" to 0,
-                "noForest" to 0))
+                "noForest" to 0,
+                "totalArea" to 0))
         }
 
     }
