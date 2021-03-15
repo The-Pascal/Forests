@@ -1,7 +1,7 @@
 package com.example.forests
 
 data class DashboardData(var normalizedscore:Int,
-                    var airQualityIndex:Int,
+                    var aqi:Int,
                     var forestDensity:Int,
                     var so2:Int,
                     var co:Int,

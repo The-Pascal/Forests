@@ -30,8 +30,8 @@ import com.example.forests.data.revGeoCodingService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import com.skydoves.progressview.ProgressView
-import com.skydoves.progressview.progressView
+//import com.skydoves.progressview.ProgressView
+//import com.skydoves.progressview.progressView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -59,6 +59,7 @@ class Dashboard : Fragment() {
     private lateinit var forestData: ForestData
     private  lateinit var airQualityData: List<Data>
     private  lateinit var addressLocationData: List<Data>
+    private var dashboardData = DashboardData()
     var firstTime = true;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +70,13 @@ class Dashboard : Fragment() {
         longitude = sharedPreferences.getString("lon", " ").toString()
         state = sharedPreferences.getString("state", " ").toString()
 
-        getForestData(state)
+        FetchAPI(lattitude,longitude,state).initializeDashboardData {
+            dashboardData = it
+            Log.i("Dashboard", "Dashboard data ${it}")
+
+        }
+
+        //getForestData(state)
 
     }
 
@@ -81,46 +88,61 @@ class Dashboard : Fragment() {
 
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
 
-        getForestData(state)
 
-        val apiService = airQualityDataService()
-        GlobalScope.launch(Dispatchers.Main) {
-            val response = apiService?.getTreesByCoordinates(lattitude, longitude)?.await()
-            if (response != null && firstTime) {
-                airQualityData = response.data
-                val aqi= airQualityData[0].aqi.toInt()
-                Log.i("AirQualityAPIresponse", response.data.toString())
-                if(firstTime) {
-                    v.findViewById<CountAnimationTextView>(R.id.airQualityData)
-                        .setAnimationDuration(1000).countAnimation(0, aqi)
-                    circularloader(500 - aqi.toFloat(), 500f, circularProgressBar_airQuality)
-                    Log.d("airQuality", "${airQualityData[0].co.toFloat()}")
-                    co_airQuality_progressView.progress = airQualityData[0].co.toFloat()
 
-                }
-                firstTime=false
-                getForestData(state)
+//
+//
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
+//        if(sharedPreferences.contains("firstTimeUserData")){
+//            val uid = FirebaseAuth.getInstance().uid
+//            val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
+//
+//            ref.get().addOnSuccessListener {
+//                getUserData()
+//            }.addOnFailureListener{
+//                Log.e("firebase", "Error getting data", it)
+//            }
+//
+//        }else{
+//            getForestData(state)
+//            var editor: SharedPreferences.Editor? = sharedPreferences.edit()
+//            editor?.putString("firstTimeUserData", true.toString())
+//            editor?.apply()
+//        }
+//
 
-            }
-        }
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
-        if(sharedPreferences.contains("firstTimeUserData")){
-            val uid = FirebaseAuth.getInstance().uid
-            val ref = FirebaseDatabase.getInstance().getReference("/userdata/$uid")
 
-            ref.get().addOnSuccessListener {
-                getUserData()
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
 
-        }else{
-            getForestData(state)
-            var editor: SharedPreferences.Editor? = sharedPreferences.edit()
-            editor?.putString("firstTimeUserData", true.toString())
-            editor?.apply()
-        }
+
+
+
+
+
+//        getForestData(state)
+//
+//        val apiService = airQualityDataService()
+//        GlobalScope.launch(Dispatchers.Main) {
+//            val response = apiService?.getTreesByCoordinates(lattitude, longitude)?.await()
+//            if (response != null && firstTime) {
+//                airQualityData = response.data
+//                val aqi= airQualityData[0].aqi.toInt()
+//                Log.i("AirQualityAPIresponse", response.data.toString())
+//                if(firstTime) {
+//                    v.findViewById<CountAnimationTextView>(R.id.airQualityData)
+//                        .setAnimationDuration(1000).countAnimation(0, aqi)
+//                    circularloader(500 - aqi.toFloat(), 500f, circularProgressBar_airQuality)
+//                    Log.d("airQuality", "${airQualityData[0].co.toFloat()}")
+////                    co_airQuality_progressView.progress = airQualityData[0].co.toFloat()
+//
+//                }
+//                firstTime=false
+//                getForestData(state)
+//
+//            }
+//        }
+
+
 
         return v;
     }
@@ -255,9 +277,9 @@ class Dashboard : Fragment() {
                 circularloader(roundedForestDensity.toFloat(),100f, circularProgressBar_forestDensity)
 
                 val totalcover : Double = (forestData.actualforestcover.toLong() + forestData.openforest.toLong() + forestData.noforest.toLong()).toDouble()
-                actualForestCover_progressView.progress = (( forestData?.actualforestcover.toFloat() / totalcover.toFloat() ) * 100)
-                openForest_progessView.progress = (( forestData?.openforest.toFloat() / totalcover.toFloat() ) * 100)
-                noForest_progressView.progress = (( forestData?.noforest.toFloat() / totalcover.toFloat() ) * 100)
+//                actualForestCover_progressView.progress = (( forestData?.actualforestcover.toFloat() / totalcover.toFloat() ) * 100)
+//                openForest_progessView.progress = (( forestData?.openforest.toFloat() / totalcover.toFloat() ) * 100)
+//                noForest_progressView.progress = (( forestData?.noforest.toFloat() / totalcover.toFloat() ) * 100)
 
                 val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
                 if(!sharedPreferences.contains("firstTimeUserData")){
