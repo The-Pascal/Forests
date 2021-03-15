@@ -68,7 +68,6 @@ class Dashboard : Fragment() {
         lattitude = sharedPreferences.getString("lat", " ").toString()
         longitude = sharedPreferences.getString("lon", " ").toString()
         state = sharedPreferences.getString("state", " ").toString()
-
         getForestData(state)
 
     }
