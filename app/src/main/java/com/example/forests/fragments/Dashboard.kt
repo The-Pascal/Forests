@@ -1,5 +1,6 @@
 package com.example.forests.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build.USER
@@ -29,6 +30,8 @@ import com.example.forests.data.revGeoCodingService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import com.skydoves.progressview.ProgressView
+import com.skydoves.progressview.progressView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -90,6 +93,7 @@ class Dashboard : Fragment() {
                 if(firstTime) {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
+                    circularloader(500 - aqi.toFloat(), 500f, circularProgressBar_airQuality)
                 }
                 firstTime=false
                 getForestData(state)
@@ -104,9 +108,7 @@ class Dashboard : Fragment() {
 
             ref.get().addOnSuccessListener {
                 getUserData()
-
             }.addOnFailureListener{
-                initializeUserData(forestData)
                 Log.e("firebase", "Error getting data", it)
             }
 
@@ -116,24 +118,10 @@ class Dashboard : Fragment() {
             editor?.putString("firstTimeUserData", true.toString())
             editor?.apply()
         }
-        circularloader(v)
 
         return v;
     }
 
-    private fun circularloader(view: View){
-        val circularProgressBar = view.findViewById<CircularProgressBar>(R.id.circularProgressBar)
-        circularProgressBar.apply {
-            Log.e("normal", normal.toString())
-            setProgressWithAnimation(216f, 4000) // =1s
-            progressMax = 1000f
-            roundBorder = true
-            startAngle = 180f
-//            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
-
-
-        }
-    }
 
     private fun initializeUserData(forestData:ForestData){
 
@@ -143,6 +131,8 @@ class Dashboard : Fragment() {
         val rating = "Rookie"
         var normalizedscore = 1000- aqi.div(Math.max(1,totalforestcover.div(Math.max(1,totalArea))))
         normal = normalizedscore
+        circularloader(normal.toFloat(), 1000f, circularProgressBar)
+        normalizedScoreData.text = normal.toString()
         Log.d("LatestMessages","normalizedscore $normalizedscore")
         var plantedtrees =0;
 
@@ -256,10 +246,12 @@ class Dashboard : Fragment() {
                 var forestDensity = totalArea?.let { Math.max(1, it) }?.let { totalforestcover?.div(it) }!!
                 val roundedForestDensity:Double = String.format("%.2f", forestDensity).toDouble()
 
-
                 Log.d("LatestMessages","Current User ${roundedForestDensity}")
 
                 v.findViewById<CountAnimationTextView>(R.id.forestDensityData).text = roundedForestDensity.toString()
+                circularloader(roundedForestDensity.toFloat(),100f, circularProgressBar_forestDensity)
+
+
 
                 val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
                 if(!sharedPreferences.contains("firstTimeUserData")){
@@ -271,6 +263,21 @@ class Dashboard : Fragment() {
             }
 
         })
+    }
+
+    private fun makeProgressView(){
+    }
+
+
+    private fun circularloader(data: Float, max:Float, circularProgressBar : CircularProgressBar){
+        circularProgressBar.apply {
+            Log.e("normal", normal.toString())
+            setProgressWithAnimation(data, 3000) // =1s
+            progressMax = max
+            roundBorder = true
+            startAngle = 180f
+//            progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+        }
     }
 
 }

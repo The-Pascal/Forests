@@ -33,6 +33,8 @@ allprojects {
         maven {
             url  "https://dl.bintray.com/susonthapa/curved-bottom-navigation"
         }
+        mavenCentral()
+
         def githubProperties = new Properties()
         githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
         repositories {

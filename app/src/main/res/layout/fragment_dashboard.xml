@@ -245,7 +245,7 @@
                                                     app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                                                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                                        android:id="@+id/circularProgressBar2"
+                                                        android:id="@+id/circularProgressBar_airQuality"
                                                         android:layout_width="110dp"
                                                         android:layout_height="110dp"
                                                         app:cpb_background_progressbar_color="#EEE4FA"
@@ -263,10 +263,10 @@
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
                                                         android:orientation="vertical"
-                                                        app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar2"
-                                                        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar2"
-                                                        app:layout_constraintStart_toStartOf="@+id/circularProgressBar2"
-                                                        app:layout_constraintTop_toTopOf="@+id/circularProgressBar2">
+                                                        app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar_airQuality"
+                                                        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar_airQuality"
+                                                        app:layout_constraintStart_toStartOf="@+id/circularProgressBar_airQuality"
+                                                        app:layout_constraintTop_toTopOf="@+id/circularProgressBar_airQuality">
 
                                                         <com.daasuu.cat.CountAnimationTextView
                                                             android:id="@+id/airQualityData"
@@ -530,13 +530,16 @@
                                                     android:layout_margin="5dp"
                                                     android:orientation="vertical">
 
-                                                    <View
-                                                        android:id="@+id/divider"
+                                                    <com.skydoves.progressview.ProgressView
+                                                        android:id="@+id/actualForestCover_progressView"
                                                         android:layout_width="4dp"
                                                         android:layout_height="60dp"
                                                         android:layout_margin="10dp"
+                                                        app:progressView_max="100"
+                                                        app:progressView_progress="20"
+                                                        app:progressView_orientation="vertical"
                                                         android:layout_marginStart="24dp"
-                                                        android:background="#8542DC" />
+                                                        app:progressView_colorProgress="#8542DC" />
 
                                                     <TextView
                                                         android:layout_width="wrap_content"
@@ -660,13 +663,13 @@
                                                     app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                                                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                                        android:id="@+id/circularProgressBar3"
+                                                        android:id="@+id/circularProgressBar_forestDensity"
                                                         android:layout_width="110dp"
                                                         android:layout_height="110dp"
                                                         app:cpb_background_progressbar_color="#FFEAE2"
                                                         app:cpb_background_progressbar_width="10dp"
                                                         app:cpb_progress_direction="to_right"
-                                                        app:cpb_progressbar_color="#8542DC"
+                                                        app:cpb_progressbar_color="#FB6837"
                                                         app:cpb_progressbar_width="15dp"
                                                         app:cpb_round_border="true"
                                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -678,10 +681,10 @@
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
                                                         android:orientation="vertical"
-                                                        app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar3"
-                                                        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar3"
-                                                        app:layout_constraintStart_toStartOf="@+id/circularProgressBar3"
-                                                        app:layout_constraintTop_toTopOf="@+id/circularProgressBar3">
+                                                        app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar_forestDensity"
+                                                        app:layout_constraintEnd_toEndOf="@+id/circularProgressBar_forestDensity"
+                                                        app:layout_constraintStart_toStartOf="@+id/circularProgressBar_forestDensity"
+                                                        app:layout_constraintTop_toTopOf="@+id/circularProgressBar_forestDensity">
 
                                                         <com.daasuu.cat.CountAnimationTextView
                                                             android:id="@+id/forestDensityData"
