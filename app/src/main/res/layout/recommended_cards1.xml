@@ -5,18 +5,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/recommended_cardView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="25dp"
-        app:cardBackgroundColor="#fff"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
-        app:cardMaxElevation="5dp"
+        android:background="@drawable/recomendbg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +27,7 @@
                 android:id="@+id/action_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/avenir_heavy"
                 android:text="Grow 5 Trees"
                 android:textColor="@color/subtxt_black"
@@ -55,14 +52,13 @@
                 android:id="@+id/action_imageView"
                 android:layout_width="200dp"
                 android:layout_height="170dp"
-                android:layout_marginTop="50dp"
                 android:src="@drawable/ic_plant_trees"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.924"
+                app:layout_constraintHorizontal_bias="0.91"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.2" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/background_play_pause"
@@ -70,8 +66,11 @@
                 android:layout_height="60dp"
                 android:src="@drawable/rounded_button"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/action_imageView"
+                app:layout_constraintHorizontal_bias="0.387"
                 app:layout_constraintStart_toStartOf="@+id/action_textView_subtext"
-                app:layout_constraintTop_toBottomOf="@+id/action_textView_subtext" />
+                app:layout_constraintTop_toBottomOf="@+id/action_textView_subtext"
+                app:layout_constraintVertical_bias="0.405" />
 
             <ImageView
                 android:id="@+id/action_play_pause_imageView"
@@ -86,7 +85,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
