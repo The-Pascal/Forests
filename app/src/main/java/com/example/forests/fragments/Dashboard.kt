@@ -93,6 +93,9 @@ class Dashboard : Fragment() {
                     v.findViewById<CountAnimationTextView>(R.id.airQualityData)
                         .setAnimationDuration(1000).countAnimation(0, aqi)
                     circularloader(500 - aqi.toFloat(), 500f, circularProgressBar_airQuality)
+                    Log.d("airQuality", "${airQualityData[0].co.toFloat()}")
+                    co_airQuality_progressView.progress = airQualityData[0].co.toFloat()
+
                 }
                 firstTime=false
                 getForestData(state)
@@ -250,7 +253,10 @@ class Dashboard : Fragment() {
                 v.findViewById<CountAnimationTextView>(R.id.forestDensityData).text = roundedForestDensity.toString()
                 circularloader(roundedForestDensity.toFloat(),100f, circularProgressBar_forestDensity)
 
-
+                val totalcover : Double = (forestData.actualforestcover.toLong() + forestData.openforest.toLong() + forestData.noforest.toLong()).toDouble()
+                actualForestCover_progressView.progress = (( forestData?.actualforestcover.toFloat() / totalcover.toFloat() ) * 100)
+                openForest_progessView.progress = (( forestData?.openforest.toFloat() / totalcover.toFloat() ) * 100)
+                noForest_progressView.progress = (( forestData?.noforest.toFloat() / totalcover.toFloat() ) * 100)
 
                 val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
                 if(!sharedPreferences.contains("firstTimeUserData")){
@@ -280,7 +286,6 @@ class Dashboard : Fragment() {
     }
 
 }
-
 
 
 class AddRecycleItemRecommended(val a: Int): Item<ViewHolder>(){

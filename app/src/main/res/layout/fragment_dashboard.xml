@@ -333,18 +333,16 @@
                                                         android:layout_weight="2"
                                                         android:orientation="vertical">
 
-                                                        <View
-                                                            android:id="@+id/divider"
-                                                            android:layout_width="4dp"
-                                                            android:layout_height="60dp"
-                                                            android:layout_margin="10dp"
-                                                            android:layout_marginStart="24dp"
-                                                            android:background="#FB6837" />
+                                                        <com.skydoves.progressview.ProgressView
+                                                            android:id="@+id/co_airQuality_progressView"
+                                                            style="@style/progressBarStyle"
+                                                            app:progressView_orientation="vertical"
+                                                            app:progressView_colorProgress="#FB6837" />
 
                                                         <TextView
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
-                                                            android:text="C02" />
+                                                            android:text="C0" />
                                                     </LinearLayout>
 
                                                     <LinearLayout
@@ -355,13 +353,11 @@
                                                         android:layout_weight="2"
                                                         android:orientation="vertical">
 
-                                                        <View
-                                                            android:id="@+id/divider"
-                                                            android:layout_width="4dp"
-                                                            android:layout_height="40dp"
-                                                            android:layout_margin="10dp"
-                                                            android:layout_marginStart="24dp"
-                                                            android:background="#FB6837" />
+                                                        <com.skydoves.progressview.ProgressView
+                                                            android:id="@+id/so2_airQuality_progressbar"
+                                                            style="@style/progressBarStyle"
+                                                            app:progressView_orientation="vertical"
+                                                            app:progressView_colorProgress="#FB6837" />
 
                                                         <TextView
                                                             android:layout_width="wrap_content"
@@ -377,13 +373,11 @@
                                                         android:layout_weight="2"
                                                         android:orientation="vertical">
 
-                                                        <View
-                                                            android:id="@+id/divider"
-                                                            android:layout_width="4dp"
-                                                            android:layout_height="50dp"
-                                                            android:layout_margin="10dp"
-                                                            android:layout_marginStart="24dp"
-                                                            android:background="#FB6837" />
+                                                        <com.skydoves.progressview.ProgressView
+                                                            android:id="@+id/o3_airQuality_progressView"
+                                                            style="@style/progressBarStyle"
+                                                            app:progressView_orientation="vertical"
+                                                            app:progressView_colorProgress="#FB6837" />
 
                                                         <TextView
                                                             android:layout_width="wrap_content"
@@ -399,18 +393,16 @@
                                                         android:layout_weight="2"
                                                         android:orientation="vertical">
 
-                                                        <View
-                                                            android:id="@+id/divider"
-                                                            android:layout_width="4dp"
-                                                            android:layout_height="60dp"
-                                                            android:layout_margin="10dp"
-                                                            android:layout_marginStart="24dp"
-                                                            android:background="#FB6837" />
+                                                        <com.skydoves.progressview.ProgressView
+                                                            android:id="@+id/no2_airQuality_progressView"
+                                                            style="@style/progressBarStyle"
+                                                            app:progressView_orientation="vertical"
+                                                            app:progressView_colorProgress="#FB6837" />
 
                                                         <TextView
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
-                                                            android:text="H2" />
+                                                            android:text="NO2" />
                                                     </LinearLayout>
 
                                                 </LinearLayout>
@@ -528,90 +520,79 @@
                                                     android:layout_gravity="bottom"
                                                     android:layout_weight="2"
                                                     android:layout_margin="5dp"
+                                                    android:gravity="center"
+                                                    android:textAlignment="center"
                                                     android:orientation="vertical">
 
                                                     <com.skydoves.progressview.ProgressView
                                                         android:id="@+id/actualForestCover_progressView"
+                                                        app:progressView_orientation="vertical"
+                                                        app:progressView_colorProgress="#8542DC"
+                                                        style="@style/progressBarStyle" />
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:textAlignment="center"
+                                                        android:text="Actual\nForest" />
+                                                </LinearLayout>
+
+                                                <LinearLayout
+                                                    android:layout_weight="2"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="bottom"
+                                                    android:layout_margin="5dp"
+                                                    android:gravity="center"
+                                                    android:orientation="vertical">
+
+                                                    <com.skydoves.progressview.ProgressView
+                                                        android:id="@+id/openForest_progessView"
                                                         android:layout_width="4dp"
-                                                        android:layout_height="60dp"
+                                                        android:layout_height="100dp"
                                                         android:layout_margin="10dp"
                                                         app:progressView_max="100"
-                                                        app:progressView_progress="20"
+                                                        app:progressView_progress="100"
                                                         app:progressView_orientation="vertical"
-                                                        android:layout_marginStart="24dp"
+                                                        android:layout_marginStart="5dp"
                                                         app:progressView_colorProgress="#8542DC" />
 
                                                     <TextView
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
-                                                        android:text="C02" />
+                                                        android:textAlignment="center"
+                                                        android:text="Open\nForest" />
                                                 </LinearLayout>
 
                                                 <LinearLayout
-                                                    android:layout_weight="2"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="bottom"
+                                                    android:layout_weight="2"
                                                     android:layout_margin="5dp"
+                                                    android:gravity="center"
+                                                    android:textAlignment="center"
                                                     android:orientation="vertical">
 
-                                                    <View
-                                                        android:id="@+id/divider"
+                                                    <com.skydoves.progressview.ProgressView
+                                                        android:id="@+id/noForest_progressView"
                                                         android:layout_width="4dp"
-                                                        android:layout_height="40dp"
+                                                        android:layout_height="100dp"
                                                         android:layout_margin="10dp"
-                                                        android:layout_marginStart="24dp"
-                                                        android:background="#8542DC" />
+                                                        app:progressView_max="100"
+                                                        app:progressView_progress="100"
+                                                        app:progressView_orientation="vertical"
+                                                        android:layout_marginStart="5dp"
+                                                        app:progressView_colorProgress="#8542DC"/>
 
                                                     <TextView
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
-                                                        android:text="S02" />
+                                                        android:textAlignment="center"
+                                                        android:text="No\nForest" />
                                                 </LinearLayout>
 
-                                                <LinearLayout
-                                                    android:layout_weight="2"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_margin="5dp"
-                                                    android:layout_gravity="bottom"
-                                                    android:orientation="vertical">
 
-                                                    <View
-                                                        android:id="@+id/divider"
-                                                        android:layout_width="4dp"
-                                                        android:layout_height="50dp"
-                                                        android:layout_margin="10dp"
-                                                        android:layout_marginStart="24dp"
-                                                        android:background="#8542DC" />
-
-                                                    <TextView
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:text="03" />
-                                                </LinearLayout>
-
-                                                <LinearLayout
-                                                    android:layout_weight="2"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_margin="5dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_gravity="bottom"
-                                                    android:orientation="vertical">
-
-                                                    <View
-                                                        android:id="@+id/divider"
-                                                        android:layout_width="4dp"
-                                                        android:layout_height="60dp"
-                                                        android:layout_margin="10dp"
-                                                        android:layout_marginStart="24dp"
-                                                        android:background="#8542DC" />
-
-                                                    <TextView
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:text="H2" />
-                                                </LinearLayout>
 
                                             </LinearLayout>
 
@@ -626,7 +607,7 @@
                                         <View
                                             android:layout_gravity="center_vertical"
                                             android:layout_width="4dp"
-                                            android:layout_height="120dp"
+                                            android:layout_height="130dp"
                                             android:layout_margin="10dp"
                                             android:background="?android:attr/listDivider"
                                             app:layout_constraintBottom_toBottomOf="parent"
