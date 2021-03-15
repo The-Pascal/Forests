@@ -28,6 +28,7 @@ class FetchAPI( val lattitude:String, val longitude:String, val state: String) {
      fun initializeDashboardData(myCallback: (result:DashboardData)-> Unit){
 
         getAirData(){
+
             if(it.normalizedscore >500){
                 it.recommendedTarget = 4
             }else{
@@ -56,6 +57,8 @@ class FetchAPI( val lattitude:String, val longitude:String, val state: String) {
 
                 getForestData(){
                     result ->
+                    dashboardData.normalizedscore = 1000- dashboardData.aqi.div(Math.max(1,(result.getValue("actualForest")+result.getValue("openForest")).div(Math.max(1,result.getValue("totalArea")))))
+
                     dashboardData.forestDensity = result.getValue("forestDensity")
                     dashboardData.actualForest = result.getValue("actualForest")
                     dashboardData.openForest = result.getValue("openForest")
@@ -97,7 +100,8 @@ class FetchAPI( val lattitude:String, val longitude:String, val state: String) {
             myCallback.invoke(mapOf("forestDensity" to roundedForestDensity.toInt(),
                                     "actualForest" to actualForest,
                                     "openForest" to openForest,
-                                    "noForest" to noForest))
+                                    "noForest" to noForest,
+                                    "totalArea" to totalArea))
         }.addOnFailureListener{
             Log.v("FetchAPI", "Error getting forest data")
 
