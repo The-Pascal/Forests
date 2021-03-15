@@ -68,13 +68,6 @@ class FetchAPI( val lattitude:String, val longitude:String, val state: String) {
     }
 
 
-
-
-
-
-
-
-
     private fun getForestData(myCallback: (result:Map<String,Int>)-> Unit){
 
         val ref = FirebaseDatabase.getInstance().getReference("/stateForestData/$state")
