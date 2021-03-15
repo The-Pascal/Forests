@@ -11,7 +11,6 @@ data class DashboardData(var normalizedscore:Int,
                     var openForest:Int,
                     var noForest:Int,
                     var recommendedTarget:Int
-
 ){
     constructor(): this(
         0,
