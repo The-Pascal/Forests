@@ -188,6 +188,7 @@
                                         android:textStyle="bold" />
 
                                     <ImageView
+                                        android:id="@+id/airmore"
                                         android:layout_width="5dp"
                                         android:layout_height="20dp"
                                         android:layout_gravity="end"
@@ -472,10 +473,11 @@
                                         android:layout_marginStart="0dp"/>
 
                                     <ImageView
-                                        android:layout_weight="1"
+                                        android:id="@+id/forestmore"
                                         android:layout_width="5dp"
                                         android:layout_height="20dp"
                                         android:layout_gravity="end"
+                                        android:layout_weight="1"
                                         android:src="@drawable/ic_baseline_more_vert_24" />
 
 

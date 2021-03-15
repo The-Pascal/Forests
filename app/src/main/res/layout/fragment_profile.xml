@@ -92,6 +92,18 @@
                 app:layout_constraintStart_toStartOf="@+id/achievement_name_textView"
                 app:layout_constraintTop_toBottomOf="@+id/achievement_name_textView" />
 
+            <ImageView
+                android:id="@+id/popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.973"
+                app:layout_constraintStart_toEndOf="@+id/achievement_name_textView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.145" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

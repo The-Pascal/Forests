@@ -10,8 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.preference.PreferenceManager
 import com.daasuu.cat.CountAnimationTextView
+import com.example.forests.Main
 import com.example.forests.R
 import com.example.forests.Userdata
 import com.example.forests.registerLogin.Users
@@ -26,6 +29,7 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_trees_planted.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -39,6 +43,7 @@ class Profile : Fragment() {
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
 
+
         getUserData()
 
     }
@@ -50,14 +55,35 @@ class Profile : Fragment() {
 
         v = inflater.inflate(R.layout.fragment_profile, container, false)
 
+        v.popup?.setOnClickListener {
+            context?.let {
+                val popupMenu = PopupMenu(it, popup)
+                popupMenu.menuInflater.inflate(R.menu.nav_menu,popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener({
+                    if (it.itemId == R.id.sign_out_menu) {
+                        Log.d("SignOut","Signout pressed")
+                    }else {
+                        Log.d("Not clicked","Nothing happened")
+                    }
+                    true
+                })
+
+                popupMenu.show()
+            }
+
+        }
         fetchCurrentUser(v)
+
 
         // circular progress
         circularProgress(v)
         getUserData()
 
+
+
         return v
     }
+
 
 
     private fun addItemsRecyclerView(view: View, completed:List<Int>){

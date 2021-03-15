@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.cardview.widget.CardView
@@ -36,8 +37,13 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.circularProgressBar
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.recommended_cards1.view.*
+import kotlinx.android.synthetic.main.recommended_cards1.view.action_textView
+import kotlinx.android.synthetic.main.recommended_cards1.view.action_textView_subtext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -80,6 +86,40 @@ class Dashboard : Fragment() {
 
         v= inflater.inflate(R.layout.fragment_dashboard, container, false)
 
+        v.airmore?.setOnClickListener {
+            context?.let {
+                val popupMenu = PopupMenu(it, airmore)
+                popupMenu.menuInflater.inflate(R.menu.cardsmenu,popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener({
+                    if (it.itemId == R.id.Refresh) {
+                        Log.d("SignOut","Signout pressed")
+                    }else if (it.itemId== R.id.more){
+                        Log.d("Not clicked","Nothing happened")
+                    }
+                    true
+                })
+
+                popupMenu.show()
+            }
+
+        }
+        v.forestmore?.setOnClickListener {
+            context?.let {
+                val popupMenu = PopupMenu(it, forestmore)
+                popupMenu.menuInflater.inflate(R.menu.cardsmenu,popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener({
+                    if (it.itemId == R.id.Refresh) {
+                        Log.d("SignOut","Signout pressed")
+                    }else if (it.itemId== R.id.more){
+                        Log.d("Not clicked","Nothing happened")
+                    }
+                    true
+                })
+
+                popupMenu.show()
+            }
+
+        }
         getForestData(state)
 
         val apiService = airQualityDataService()

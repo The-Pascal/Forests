@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/sign_out_menu"
-        android:title="Log Out" />
+        android:id="@+id/Refresh"
+        android:title="Refresh" />
+    <item android:id="@+id/more"
+        android:title="More Options"/>
 </menu>
